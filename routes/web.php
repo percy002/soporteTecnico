@@ -6,6 +6,7 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\HTMLPDFController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,5 @@ Route::resource('personas', PersonaController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::post('login2', [LoginController::class,'authenticate'])->name('login2');
