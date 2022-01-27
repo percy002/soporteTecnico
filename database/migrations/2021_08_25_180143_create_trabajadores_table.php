@@ -13,11 +13,12 @@ class CreateTrabajadoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('trabajadores', function (Blueprint $table) {
+        Schema::create('responsables', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('DNI');
-            $table->string('lugar');
+            $table->string('nombre');
+            $table->string('dni');
+            $table->string('celular')->nullable();
+            $table->string('area');
             $table->string('observacion')->nullable();
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateTrabajadoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trabajadores');
+        Schema::dropIfExists('responsables');
     }
 }

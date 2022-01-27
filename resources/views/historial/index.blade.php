@@ -36,7 +36,7 @@
                             @else
                             <td>INOPERATIVO</td>
                             @endif
-                            <td>{{ $mantenimiento->salida }}</td>
+                            <td>{{ $mantenimiento->fecha_entrega }}</td>
                         @endif
                     @endforeach
                 @endif

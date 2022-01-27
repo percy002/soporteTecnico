@@ -117,7 +117,7 @@ class PersonaController extends Controller
             $user->email= $personas->usuario;
             $user->rol= $request->get('rol');
             $user->password= bcrypt($personas->contraseña);
-            $user->save();
+            $user->getResource()->save();//update
         }
 
         $personas->save();
@@ -141,12 +141,21 @@ class PersonaController extends Controller
         $personas=Persona::find($id);
         $personas->cuenta=1;
         $personas->save();
-        User::create([
-            'name' => $personas->name,
-            'email' => $personas->usuario,
-            'rol'=> $personas->rol,
-            'password' => bcrypt($personas->contraseña),
-        ])->assignRole($personas->rol);
+
+        $aux=DB::table('users')->where('email','=',$personas->usuario)->get();        
+        
+        $usuarios=User::find($aux[0]->id);
+        $usuarios->active=1;
+        $usuarios->save();
+
+
+
+        // User::create([
+        //     'name' => $personas->name,
+        //     'email' => $personas->usuario,
+        //     'rol'=> $personas->rol,
+        //     'password' => bcrypt($personas->contraseña),
+        // ])->assignRole($personas->rol);
         return redirect('/personas');
     }
     public function desabilitar($id)

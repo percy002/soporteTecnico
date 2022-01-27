@@ -3,7 +3,7 @@
 @section('content')
 <h1>MODIFICAR EQUIPO</h1>
 
-<form class="row g-3" action="/equipos/{{$caracteristicas->id}}" method="POST">
+<form class="row g-3" action="/equipos/{{$equipo->id}}" method="POST">
     @csrf
     @method('PUT')
     
@@ -11,22 +11,22 @@
 
     <div class="mb-3 col-4">
         <label for="" class="form-label">Equipo</label>
-        <input id="equipo" name="equipo" type="text" value="{{$equipos->tipo}}" class="form-control" tabindex="1" readonly />
+        <input id="equipo" name="equipo" type="text" value="{{$equipo->tipo}}" class="form-control" tabindex="1" readonly />
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Codigo Patrimonial</label>
-        <input id="patrimonio" name="patrimonio" type="text" value="{{$caracteristicas->patrimonio}}" class="form-control" tabindex="2" readonly />
+        <input id="patrimonio" name="patrimonio" type="text" value="{{$equipo->patrimonio}}" class="form-control" tabindex="2" readonly />
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Marca</label>
-        <input id="marca" name="marca" type="text" value="{{$equipos->name}}" class="form-control" tabindex="3" readonly />
+        <input id="marca" name="marca" type="text" value="{{$equipo->name}}" class="form-control" tabindex="3" readonly />
     </div>
 
-    @if($equipos->tipo=="CPU")
+    @if($equipo->tipo=="CPU")
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Sistema Operativo</label>
                         <select id="sistema" name="sistema" class="form-control" required>
-                            <option hidden selected>{{$caracteristicas->sistema}}</option>
+                            <option hidden selected>{{$equipo->sistema}}</option>
                             <option value="Windows 7 - 32 bits">Windows 7 - 32 bits</option>
                             <option value="Windows 7 -64 bits">Windows 7 - 64 bits</option>
                             <option value="Windows 8 - 32 bits">Windows 8 - 32 bits</option>
@@ -37,7 +37,7 @@
                             <option value="Windows 10 - 64 bits">Windows 10 - 64 bits</option>
                         </select>
                     </div>
-                    <?php $separador1 = explode("-", $caracteristicas->procesador); ?>
+                    <?php $separador1 = explode("-", $equipo->procesador); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Procesador</label>
                         <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required>
@@ -92,17 +92,17 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Placa</label>
-                        <input id="placa" name="placa" type="text" class="form-control" value="{{$caracteristicas->placa}}" tabindex="6" required>
+                        <input id="placa" name="placa" type="text" class="form-control" value="{{$equipo->placa}}" tabindex="6" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Socket</label>
-                        <input id="socket" name="socket" type="text" class="form-control" value="{{$caracteristicas->socket}}" tabindex="7" required>
+                        <input id="socket" name="socket" type="text" class="form-control" value="{{$equipo->socket}}" tabindex="7" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">RAM</label>
-                        <input id="RAM" name="RAM" type="number" value="{{$caracteristicas->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
+                        <input id="RAM" name="RAM" type="number" value="{{$equipo->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
                     </div>
-                    <?php $separador2 = explode(" ", $caracteristicas->disco); ?>
+                    <?php $separador2 = explode(" ", $equipo->disco); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo de Disco</label>
                         <select id="disco1" name="disco1" class="form-control" required>
@@ -125,7 +125,7 @@
                         <input id="disco12" name="disco12" type="number" step="10" min="100" max="990" class="form-control" style="display:none">
                         @endif
                     </div>
-                    @if($caracteristicas->video==0)
+                    @if($equipo->video==0)
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Video</label><br>
                         <select id="aux3" name="aux3" class="form-control" onchange="showresult(this.value)" required>
@@ -141,17 +141,17 @@
                             <option value=4 selected>Si tiene</option>
                             <option value=5>No tiene</option>
                         </select>
-                        <input id="video" name="video" type="number" min="1" max="16" value="{{$caracteristicas->video}}" class="form-control">
+                        <input id="video" name="video" type="number" min="1" max="16" value="{{$equipo->video}}" class="form-control">
                     </div>
                     @endif
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Red (Direccion IP)</label>
-                        <input id="red" name="red" type="text" value="{{$caracteristicas->red}}" class="form-control" tabindex="11" required>
+                        <input id="red" name="red" type="text" value="{{$equipo->red}}" class="form-control" tabindex="11" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Lectora</label>
                         <select id="lectora" name="lectora" class="form-control" tabindex="12" required>
-                            @if($caracteristicas->lectora==1)
+                            @if($equipo->lectora==1)
                                 <option value=1 selected>SI</option>
                                 <option value=0>NO</option>
                             @else
@@ -161,22 +161,22 @@
                         </select>
                     </div>
 
-    @elseif($equipos->tipo=="IMPRESORA" or $equipos->tipo=="ESCANER")
+    @elseif($equipo->tipo=="IMPRESORA" or $equipo->tipo=="ESCANER")
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>{{$caracteristicas->tipo}}</option>
+                            <option hidden selected>{{$equipo->tipo}}</option>
                             <option value="Laser" selected>Laser</option>
                             <option value="Matrisial">Matrisial</option>
                             <option value="Tinta">Tinta</option>
                         </select>
                     </div>
 
-    @elseif($equipos->tipo=="LAPTOP")
+    @elseif($equipo->tipo=="LAPTOP")
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Sistema Operativo</label>
                         <select id="sistema" name="sistema" class="form-control" required>
-                            <option hidden selected>{{$caracteristicas->sistema}}</option>
+                            <option hidden selected>{{$equipo->sistema}}</option>
                             <option value="Windows 7 - 32 bits">Windows 7 - 32 bits</option>
                             <option value="Windows 7 -64 bits">Windows 7 - 64 bits</option>
                             <option value="Windows 8 - 32 bits">Windows 8 - 32 bits</option>
@@ -187,7 +187,7 @@
                             <option value="Windows 10 - 64 bits">Windows 10 - 64 bits</option>
                         </select>
                     </div>
-                    <?php $separador1 = explode("-", $caracteristicas->procesador); ?>
+                    <?php $separador1 = explode("-", $equipo->procesador); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Procesador</label>
                         <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required>
@@ -242,13 +242,13 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Placa</label>
-                        <input id="placa" name="placa" type="text" class="form-control" value="{{$caracteristicas->placa}}" tabindex="6" required>
+                        <input id="placa" name="placa" type="text" class="form-control" value="{{$equipo->placa}}" tabindex="6" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">RAM</label>
-                        <input id="RAM" name="RAM" type="number" value="{{$caracteristicas->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
+                        <input id="RAM" name="RAM" type="number" value="{{$equipo->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
                     </div>
-                    <?php $separador2 = explode(" ", $caracteristicas->disco); ?>
+                    <?php $separador2 = explode(" ", $equipo->disco); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo de Disco</label>
                         <select id="disco1" name="disco1" class="form-control" required>
@@ -271,7 +271,7 @@
                         <input id="disco12" name="disco12" type="number" step="10" min="100" max="990" class="form-control" style="display:none">
                         @endif
                     </div>
-                    @if($caracteristicas->video==0)
+                    @if($equipo->video==0)
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Video</label><br>
                         <select id="aux3" name="aux3" class="form-control" onchange="showresult(this.value)" required>
@@ -287,17 +287,17 @@
                             <option value=4 selected>Si tiene</option>
                             <option value=5>No tiene</option>
                         </select>
-                        <input id="video" name="video" type="number" min="1" max="16" value="{{$caracteristicas->video}}" class="form-control">
+                        <input id="video" name="video" type="number" min="1" max="16" value="{{$equipo->video}}" class="form-control">
                     </div>
                     @endif
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tamaño</label>
-                        <input id="tamaño" name="tamaño" type="number" value="{{$caracteristicas->tamaño}}" step="0.1" min="10.0" max="20.0" class="form-control" tabindex="10" required>
+                        <input id="tamaño" name="tamaño" type="number" value="{{$equipo->tamaño}}" step="0.1" min="10.0" max="20.0" class="form-control" tabindex="10" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">¿Funciona solo con bateria?</label>
                         <select id="bateria" name="bateria" class="form-control" tabindex="11" required>
-                            @if($caracteristicas->bateria==1)
+                            @if($equipo->bateria==1)
                                 <option value=1 selected>SI</option>
                                 <option value=0>NO</option>
                             @else
@@ -308,12 +308,12 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Red (Direccion IP)</label>
-                        <input id="red" name="red" type="text" value="{{$caracteristicas->red}}" class="form-control" tabindex="11" required>
+                        <input id="red" name="red" type="text" value="{{$equipo->red}}" class="form-control" tabindex="11" required>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Lectora</label>
                         <select id="lectora" name="lectora" class="form-control" tabindex="12" required>
-                            @if($caracteristicas->lectora==1)
+                            @if($equipo->lectora==1)
                                 <option value=1 selected>SI</option>
                                 <option value=0>NO</option>
                             @else
@@ -323,25 +323,25 @@
                         </select>
                     </div>
 
-    @elseif($equipos->tipo=="MONITOR")
+    @elseif($equipo->tipo=="MONITOR")
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>{{$caracteristicas->tipo}}</option>
+                            <option hidden selected>{{$equipo->tipo}}</option>
                             <option value="Led">Led</option>
                             <option value="LCP">LCP</option>
                         </select>
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tamaño</label>
-                        <input id="tamaño" name="tamaño" type="number" value="{{$caracteristicas->tamaño}}" min="17" max="32" class="form-control" required>
+                        <input id="tamaño" name="tamaño" type="number" value="{{$equipo->tamaño}}" min="17" max="32" class="form-control" required>
                     </div>
 
-    @elseif($equipos->tipo=="MOUSE" or $equipos->tipo=="TECLADO")
+    @elseif($equipo->tipo=="MOUSE" or $equipo->tipo=="TECLADO")
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>{{$caracteristicas->tipo}}</option>
+                            <option hidden selected>{{$equipo->tipo}}</option>
                             <option value="PS2">PS2</option>
                             <option value="USB">USB</option>
                         </select>
@@ -350,7 +350,7 @@
     @endif
 
     <br><br>
-    <?php $separador3 = explode("|", $caracteristicas->estado);  ?>
+    <?php $separador3 = explode("|", $equipo->estado);  ?>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Estado</label>
         <select id="estado" name="estado" class="form-control" required>

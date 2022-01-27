@@ -35,6 +35,9 @@ Route::get('personas/{id}/desabilitar', [PersonaController::class, 'desabilitar'
 Route::get('mantenimiento/{id}/habilitar', [MantenimientoController::class, 'habilitar']);
 Route::get('mantenimiento/{id}/desabilitar', [MantenimientoController::class, 'desabilitar']);
 
+//entregar equipo
+Route::get('mantenimiento/{id}/entregar', [MantenimientoController::class, 'entregar']);
+
 Route::get('equipos/CPU', function () {
     return view('equipo/modal/CPU');
 });

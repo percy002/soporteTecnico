@@ -24,7 +24,7 @@ class HistorialController extends Controller
 
     public function index()
     {
-        $mantenimientos=DB::table('mantenimientos')->where('salida','!=',null)->get();
+        $mantenimientos=DB::table('mantenimientos')->where('fecha_entrega','!=',null)->get();
         $caracteristicas=DB::table('caracteristicas')->get();
         $equipos=DB::table('equipos')->get();
         return view('historial.index')->with('equipos',$equipos)->with('caracteristicas',$caracteristicas)->with('mantenimientos',$mantenimientos);

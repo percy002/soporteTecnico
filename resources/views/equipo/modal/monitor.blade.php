@@ -37,14 +37,17 @@
                         <input id="tamaño" name="tamaño" type="number" min="17" max="32" class="form-control" required>
                     </div>
                     <div class="mb-3 col-5">
-                        <h1><label for="" class="form-label">Estado</label></h1><br>
-                        <select id="estado1" name="estado1" class="form-control" required>
+                        <h3><label for="" class="form-label">Estado</label></h3><br>
+                        <select id="estado" name="estado" class="form-control" required>
                             <option hidden selected>Selecciona una opción</option>
                             <option value="OPERATIVO">OPERATIVO</option>
                             <option value="INOPERATIVO">INOPERATIVO</option>
                         </select>
-                        <input id="estado2" name="estado2" type="text" class="form-control" required>
+                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
                     </div>
+
+                    @include('equipo.modal.includetrabajador')
+                    
                     <div class="col-xs-12 col-sm-12 col-md-12>">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>

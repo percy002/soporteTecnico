@@ -12,23 +12,21 @@
         <input id="entrada" name="entrada" type="date" value="{{ $fechas }}" class="form-control" tabindex="1">
     </div>
     <div class="mb-3 col-4">
-        <label for="" class="form-label">Encargado</label>
+        <label for="" class="form-label">Encargado del mantenimiento</label>
         <select id="encargado" name="encargado" class="form-control" tabindex="2" required>
-            @foreach($personas as $persona)
-                <option value="{{$persona->name}}">{{$persona->name}}</option>
+            @foreach($users as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
             @endforeach
         </select>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Equipo que se dara mantenimiento</label>
         <select id="equipo" name="equipo" class="form-control selectpicker" data-live-search="true" tabindex="3" required>
-            @foreach($caracteristicas as $caracteristica)
-                @foreach($equipos as $equipo)
-                    @if($equipo->id==$caracteristica->marca)
-                        <option value="{{$caracteristica->id}}">{{ 'EQUIPO'.$caracteristica->id." | ".$equipo->tipo." - ".$equipo->name }}</option>
-                    @endif
+            
+                @foreach($responsable_equipos as $res_equipo)
+                        <option value="{{$res_equipo->equipo->id}}">{{ 'EQUIPO'.$res_equipo->equipo->id." | ".$res_equipo->equipo->tipo." - ".$res_equipo->equipo->marca." | ".$res_equipo->responsable->nombre }}</option>
+                    
                 @endforeach
-            @endforeach
         </select>
     </div>
     <div class="mb-3 col-4">
@@ -54,7 +52,7 @@
             <option value=0>INOPERATIVO</option>
         </select>
     </div>
-    <a href="/personas" class="btn btn-secondary" tabindex="10">Cancelar</a>
+    <a href="/users" class="btn btn-secondary" tabindex="10">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="9">Guardar</button>
 </form>
 @stop

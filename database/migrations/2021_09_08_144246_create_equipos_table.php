@@ -16,8 +16,26 @@ class CreateEquiposTable extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('tipo');
-            $table->string('name');
+            $table->string('patrimonio');
+            $table->integer('responsable')->nullable();
+
+            //modificacion de los caracteristicas de un equipo
+            $table->string('marca')->nullable();
+            $table->string('sistema')->nullable();
+            $table->string('procesador')->nullable();
+            $table->string('placa')->nullable();
+            $table->string('socket')->nullable();
+            $table->integer('ram')->nullable();
+            $table->string('disco')->nullable();
+            $table->integer('video')->nullable();
+            $table->string('red')->nullable();
+            $table->string('bateria')->nullable();
+            $table->string('lectora')->nullable();
+            $table->string('tamaño_disco')->nullable();
+            $table->string('estado');
             $table->timestamps();
+
+
         });
     }
 

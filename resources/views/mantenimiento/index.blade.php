@@ -24,13 +24,20 @@
             <th scope="cool">Area</th>
             <th scope="cool">Fecha de Entrada</th>
             <th scope="cool">Estado</th>
+            <th scope="cool">Entregar</th>
             <th scope="cool">Acciones</th>
         </tr>
     </thead>
     <body>
         @foreach ($mantenimientos as $mantenimiento)
         <tr>
-            @foreach ($caracteristicas as $caracteristica)
+            <td>{{$mantenimiento->id}}</td>
+            <td>{{$mantenimiento->equipo->patrimonio}}</td>
+            <td>{{$equipo->id}}</td>
+            <td>{{$responsable->nombre}}</td>
+            <td>{{$responsable->area}}</td>
+            <td>{{$mantenimiento->fecha_entrada}}</td>
+            {{-- @foreach ($caracteristicas as $caracteristica)
                 @if($caracteristica->id==$mantenimiento->equipo)
                     <td>{{ 'EQUIPO'.$caracteristica->id }}</td>
                     <td>{{ $caracteristica->patrimonio }}</td>
@@ -52,7 +59,7 @@
                     @endforeach
                 @endif
             @endforeach
-            <td>{{ $mantenimiento->entrada }}</td>
+            <td>{{ $mantenimiento->entrada }}</td> --}}
 
             
 
@@ -64,7 +71,7 @@
             @endif --}}
             @if (Auth::user()->rol == 'administrador')
             <td>
-                {{ Auth::user()->roles }}
+                {{-- {{ Auth::user()->roles }} --}}
                 @if($mantenimiento->estado==1)
                 <a href="/mantenimiento/{{$mantenimiento->id}}/desabilitar" class="btn btn-info">listo</i></a>
                 @else
@@ -72,14 +79,30 @@
                 @endif
             </td>
             @else
-                {{ Auth::user()->roles }}
+                {{-- {{ Auth::user()->roles }} --}}
                 @if ($mantenimiento->estado==1)
-                <td>Listo  {{Auth::user()->name}}</td>
+                <td>Listo</td>
                 @else
-                    <td>Pendiente {{Auth::user()->rol}}</td>
+                    <td>Pendiente</td>
 
                 @endif
             @endif
+            <td>
+                @if (Auth::user()->rol == 'administrador')
+                    @if($mantenimiento->entregado==0 && $mantenimiento->estado==1)
+                        <a href="/mantenimiento/{{$mantenimiento->id}}/entregar" class="btn btn-info">Entregar equipo</i></a>
+                    @else
+                        ----------
+                        {{-- <a href="/mantenimiento/{{$mantenimiento->id}}/habilitar" class="btn btn-info">pendiente</i></a> --}}
+                    @endif
+                @else
+                    @if ($mantenimiento->entregado==0)
+                        <td>Pendiente</td>
+                    @else
+                        <td>Entregado</td>
+                    @endif
+                @endif
+            </td>
             <td>
                 <form action="{{ route ('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
                     @can('mantenimientos.edit')

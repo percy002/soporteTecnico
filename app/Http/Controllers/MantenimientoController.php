@@ -8,10 +8,14 @@ use PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Equipo;
+use App\Models\User;
 use App\Models\Persona;
 use App\Models\Caracteristica;
 use App\Models\Mantenimiento;
-use App\Models\Trabajadore;
+// use App\Models\Trabajadore;
+use App\Models\Responsable;
+use App\Models\Responsable_Equipo;
+Use Carbon\Carbon;
 
 class MantenimientoController extends Controller
 {
@@ -25,15 +29,19 @@ class MantenimientoController extends Controller
         $this->middleware('auth'); 
     }
 
+    
     public function index()
     {
-        $mantenimientos=DB::table('mantenimientos')->where('salida','=',null)->get();
-        $caracteristicas=DB::table('caracteristicas')->get();
-        $trabajadores=DB::table('trabajadores')->get();
-        $equipos=DB::table('equipos')->get();
+        $mantenimientos=DB::table('mantenimientos')->where('entregado','=','0')->where('fecha_entrega','=',null)->get();
+        dd($mantenimientos);
+        // $trabajadores=DB::table('trabajadores')->get();
+        
+        $responsable=Responsable::all();
+        $equipos=Equipo::all();
+        $users=User::all();
         $personas=DB::table('personas')->get();
         
-        return view('mantenimiento\index')->with('equipos',$equipos)->with('caracteristicas',$caracteristicas)->with('mantenimientos',$mantenimientos)->with('trabajadores',$trabajadores)->with('personas',$personas);
+        return view('mantenimiento\index')->with('equipos',$equipos)->with('mantenimientos',$mantenimientos)->with('personas',$personas);
     }
 
     /**
@@ -44,11 +52,11 @@ class MantenimientoController extends Controller
     public function create()
     {
         $fechas=date('Y-m-d');
-        $equipos=DB::table('equipos')->get();
-        $mantenimientos=DB::table('mantenimientos')->where('salida','=',null)->get();
-        $caracteristicas=DB::table('caracteristicas')->get();
-        $personas=DB::table('personas')->where('rol','=','administrador')->get();
-        return view('mantenimiento.create')->with('equipos',$equipos)->with('caracteristicas',$caracteristicas)->with('fechas',$fechas)->with('personas',$personas)->with('mantenimientos',$mantenimientos);
+        $equipos=Equipo::all();
+        $responsable_equipos=Responsable_Equipo::all();
+        $mantenimientos=DB::table('mantenimientos')->where('fecha_entrega','=',null)->get();
+        $users=User::all();
+        return view('mantenimiento.create')->with('responsable_equipos',$responsable_equipos)->with('fechas',$fechas)->with('mantenimientos',$mantenimientos)->with('users',$users);
     }
 
     /**
@@ -61,8 +69,8 @@ class MantenimientoController extends Controller
     {
         $mantenimientos=new Mantenimiento();
 
-        $mantenimientos->entrada=$request->get('entrada');
-        $mantenimientos->encargado=$request->get('encargado');
+        $mantenimientos->fecha_entrada=$request->get('entrada');
+        $mantenimientos->user_id=$request->get('encargado');
 
         $personas=DB::table('personas')->where('name','=',$mantenimientos->encargado)->get();
         foreach($personas as $aux){
@@ -70,7 +78,7 @@ class MantenimientoController extends Controller
             $mantenimientos->celular=$personaencargada->celular;
         }
 
-        $mantenimientos->equipo=$request->get('equipo');
+        $mantenimientos->responsable_equipo_id=$request->get('equipo');
         $mantenimientos->problema=$request->get('problema');
         $mantenimientos->causa=$request->get('causa');
         $mantenimientos->solucion=$request->get('solucion');
@@ -78,17 +86,18 @@ class MantenimientoController extends Controller
         $mantenimientos->estado=$request->get('estado');
         // dd($request->get('estado'));
 
-        $caracteristicas=Caracteristica::find($mantenimientos->equipo);
+        $equipo=Responsable_Equipo::find($mantenimientos->responsable_equipo_id)->equipo;
+        // dd($equipo->estado);
         if ($request->get('estado')==1) {
-            $caracteristicas->estado='OPERATIVO';
+            $equipo->estado='OPERATIVO';
         }
         else {
-            $caracteristicas->estado='INOPERATIVO';
+            $equipo->estado='INOPERATIVO';
 
         }
-        // $caracteristicas->estado=$mantenimientos->estado;
+        // $equipo->estado=$mantenimientos->estado;
 
-        $caracteristicas->save();
+        $equipo->save();
         $mantenimientos->save();
 
         return redirect('/mantenimientos');
@@ -116,9 +125,9 @@ class MantenimientoController extends Controller
         $fechas=date('Y-m-d');
         $mantenimientos=Mantenimiento::find($id);
         $caracteristicas=Caracteristica::find($mantenimientos->equipo);
-        $trabajadores=Trabajadore::find($caracteristicas->responsable);
-        $equipos=Equipo::find($caracteristicas->marca);
-        return view('mantenimiento.edit')->with('mantenimientos',$mantenimientos)->with('caracteristicas',$caracteristicas)->with('trabajadores',$trabajadores)->with('equipos',$equipos)->with('fechas',$fechas);
+        // $trabajadores=Trabajadore::find($caracteristicas->responsable);
+        $equipos=Equipo::find($mantenimento->equipo_id);
+        return view('mantenimiento.edit')->with('mantenimientos',$mantenimientos)->with('caracteristicas',$caracteristicas)->with('equipos',$equipos)->with('fechas',$fechas)->with('responsable',$responsable);
     }
 
     /**
@@ -133,13 +142,13 @@ class MantenimientoController extends Controller
 
         $mantenimientos=Mantenimiento::find($id);
 
-        $mantenimientos->salida=$request->get('salida').' 00:00:00';
+        $mantenimientos->fecha_entrega=$request->get('fecha_entrega').' 00:00:00';
         $mantenimientos->persona=$request->get('persona');
         $mantenimientos->DNI=$request->get('DNI');
 
         $caracteristicas=Caracteristica::find($mantenimientos->equipo);
-        $trabajadores=Trabajadore::find($caracteristicas->responsable);
-        $mantenimientosR=DB::table('mantenimientos')->where('salida','=',null)->get();
+        // $trabajadores=Trabajadore::find($caracteristicas->responsable);
+        $mantenimientosR=DB::table('mantenimientos')->where('fecha_entrega','=',null)->get();
         $caracteristicasR=DB::table('caracteristicas')->where('responsable','=',$caracteristicas->responsable)->get();
 
         $mantenimientos->save();
@@ -148,7 +157,7 @@ class MantenimientoController extends Controller
             foreach($caracteristicasR as $caracteristica){
                 if($mantenimento->equipo==$caracteristica->id){
                     $mantenimientoID=Mantenimiento::find($mantenimento->id);
-                    $mantenimientoID->salida=$mantenimientos->salida;
+                    $mantenimientoID->fecha_entrega=$mantenimientos->fecha_entrega;
                     $mantenimientoID->save();
                 }
             }
@@ -182,6 +191,16 @@ class MantenimientoController extends Controller
     {
         $mantenimento=Mantenimiento::find($id);
         $mantenimento->estado=0;
+        $mantenimento->save();
+        
+        return redirect('/mantenimientos');
+    }
+
+    public function entregar($id){
+        $fechaSalida=Carbon::now()->toDateTimeString();
+        $mantenimento=Mantenimiento::find($id);
+        $mantenimento->entregado=1;
+        $mantenimento->fecha_entrega=Carbon::now()->toDateTimeString();;
         $mantenimento->save();
         
         return redirect('/mantenimientos');

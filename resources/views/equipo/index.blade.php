@@ -24,9 +24,20 @@
         </tr>
     </thead>
     <body>
-        @foreach ($caracteristicas as $caracteristica)
+        @foreach ($responsable_equipos as $responsable_equipo)
+        @php
+            $equipo=$responsable_equipo->equipo
+            
+        @endphp
         <tr>
-            <td>{{ 'EQUIPO'.$caracteristica->id }}</td>
+            
+            <td>{{$equipo->id}}</td>
+            <td>{{$equipo->patrimonio}}</td>
+            <td>{{$equipo->tipo}}</td>
+            <td>{{$responsable_equipo->responsable->nombre}}</td>
+            <td>{{$responsable_equipo->responsable->area}}</td>
+            <td>{{$equipo->estado}}</td>
+            {{-- <td>{{ 'EQUIPO'.$caracteristica->id }}</td>
             <td>{{ $caracteristica->patrimonio }}</td>
             @foreach ($equipos as $equipo)
                 @if($equipo->id==$caracteristica->marca)
@@ -43,14 +54,13 @@
                     <td>{{ $trabajadore->lugar }}</td>
                 @endif
             @endforeach
-            <?php $separador = explode("|", $caracteristica->estado); ?>
             
-            <td> {{$separador[0]}} </td>
+            <td> {{$separador[0]}} </td> --}}
 
             <td>
-                <form action="{{ route('caracteristicas.destroy', $caracteristica->id) }}" method="POST">
+                <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST">
                     @can('equipos.edit')
-                        <a href="/equipos/{{$caracteristica->id}}/edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                        <a href="/equipos/{{$equipo->id}}/edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
                     @endcan
                     @csrf
                     @method('DELETE')

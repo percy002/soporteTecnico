@@ -43,12 +43,12 @@
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Procesador</label>
                         <input id="velocidad" name="velocidad" type="number" min="1" max="10" required>
-                        <select id="aux1" name="aux1" class="form-control" onchange="showresult(this.value)" required>
+                        <select id="procesador_marca" name="procesador_marca" class="form-control" onchange="showresult(this.value)" required>
                             <option hidden selected>Selecciona una opción</option>
                             <option value="Intel">Intel</option>
                             <option value="AMD">AMD</option>
                         </select>
-                        <select id="procesador1" name="procesador1" class="form-control" style="display:none">
+                        <select id="procesador1" name="procesador" class="form-control" style="display:none">
                             <option hidden selected>Selecciona una opción</option>
                             <option value="Centrino">Centrino</option>
                             <option value="Core 2 Duo">Core 2 Duo</option>
@@ -59,7 +59,7 @@
                             <option value="Core I5">Core I5</option>
                             <option value="Core I7">Core I7</option>
                         </select>
-                        <select id="procesador2" name="procesador2" class="form-control" style="display:none">
+                        <select id="procesador2" name="procesador" class="form-control" style="display:none">
                             <option hidden selected>Selecciona una opción</option>
                             <option value="AMD E">AMD E</option>
                             <option value="Athon II">Athon II</option>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">RAM</label>
-                        <input id="RAM" name="RAM" type="number" min="4" max="32" class="form-control" required>
+                        <input id="ram" name="ran" type="number" min="4" max="32" class="form-control" required>
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Tipo de Disco</label>
@@ -112,16 +112,15 @@
                         <input id="tamaño" name="tamaño" type="number" step="0.1" min="10.0" max="20.0" class="form-control" style="display:none">
                     </div>
                     <div class="mb-3 col-5">
-                        <label for="" class="form-label">¿Funciona solo con bateria?</label>
+                        <label for="bateria" class="form-label">Estado de la bateria</label>
                         <select id="bateria" name="bateria" class="form-control" style="display:none">
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value=1>SI</option>
-                            <option value=0>NO</option>
+                            <option value="OPERATIVO" selected>OPERATIVO</option>
+                            <option value="INOPERATIVO" >INOPERATIVO</option>
                         </select>
                     </div>
                     <img Align="right" width="330" height="330" src="https://m.media-amazon.com/images/I/41QHfUYOICL.jpg">
                     <div class="mb-3 col-5">
-                        <label for="" class="form-label">Red (Direccion IP)</label>
+                        <label for="" class="form-label">Red (Direccion IP)</label>w
                         <input id="red" name="red" type="text" class="form-control">
                     </div>
                     <div class="mb-3 col-5">
@@ -133,14 +132,28 @@
                         </select>
                     </div>
                     <div class="mb-3 col-5">
-                        <h1><label for="" class="form-label">Estado</label></h1><br>
-                        <select id="estado1" name="estado1" class="form-control" required>
+                        <h3><label for="" class="form-label">Estado</label></h3><br>
+                        <select id="estado" name="estado" class="form-control" required>
                             <option hidden selected>Selecciona una opción</option>
                             <option value="OPERATIVO">OPERATIVO</option>
                             <option value="INOPERATIVO">INOPERATIVO</option>
                         </select>
-                        <input id="estado2" name="estado2" type="text" class="form-control" required>
+                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
                     </div>
+
+                    <div class="trabajador">
+
+                        <div>    
+                            @include('equipo.modal.includetrabajador')
+                        </div>
+                        <div class="trabajador_imagen">
+                            <img Align="right" width="300" height="250" src="https://previews.123rf.com/images/sudowoodo/sudowoodo1507/sudowoodo150700014/42186961-los-empresarios-j%C3%B3venes-hombre-y-mujer-en-el-estilo-de-dibujos-animados-en-el-juego-con-la-maleta-ai.jpg">
+                            <img Align="right" width="300" height="250" src="https://previews.123rf.com/images/sudowoodo/sudowoodo1507/sudowoodo150700014/42186961-los-empresarios-j%C3%B3venes-hombre-y-mujer-en-el-estilo-de-dibujos-animados-en-el-juego-con-la-maleta-ai.jpg">
+
+                        </div>
+                    </div>
+
+
                     <div class="col-xs-12 col-sm-12 col-md-12>">
                         {{-- <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancelar</a> --}}
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -151,6 +164,10 @@
         </div>
     </div>
 </form>
+@section('css')
+{{-- <link rel="stylesheet" href={{mix('style.css')}}> --}}
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+@stop
 
 @section('js')
     <script>
@@ -173,9 +190,11 @@
             }
             else if (str == 4) {
                 $("#video").css('display', 'block');
+                // $("#tamaño").css('display', 'block');
             }
             else if(str == 5){
                 $("#video").css('display', 'none');
+                // $("#tamaño").css('display', 'none');
             }
             else if(str == "CPU"){
                 $("#tamaño").css('display', 'none');

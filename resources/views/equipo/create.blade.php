@@ -41,17 +41,17 @@
         </a>
     </div>
     <br>
-    <img Align="right" width="450" height="280" src="https://factorcapitalhumano.com/wp-content/uploads/2020/04/trabajadores-condiciones-durante-la-contingencia-sanitaria.jpg">
+    {{-- <img Align="right" width="450" height="280" src="https://factorcapitalhumano.com/wp-content/uploads/2020/04/trabajadores-condiciones-durante-la-contingencia-sanitaria.jpg">
     <div class="mb-3 col-7">
         <h1><label for="" class="form-label">Responsable de equipo</label></h1>
         <br>
         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#ModalCreateTrabajador" style="color:white">
             <span style="color:white">Responsable</span>
         </a>
-    </div>
+    </div> --}}
     <br>
     <a href="/mantenimientos" class="btn btn-secondary">Cancelar</a>
-    <a href="/mantenimientos\create" class="btn btn-primary">Guardar</a>
+    <a href="/mantenimientos\create" class="btn btn-primary">Crear mantenimiento</a>
 
     @include('equipo.modal.CPU')
     @include('equipo.modal.estabilizador')
