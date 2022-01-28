@@ -62,7 +62,7 @@ class EquipoController extends Controller
         $equipos->placa=$request->get('placa');
         $equipos->socket=$request->get('socket');
         $equipos->ram=$request->get('ram');
-        $equipos->disco=$request->get('disco');
+        $equipos->disco=$request->get('disco12')." GB ".$request->get('disco1');
         $equipos->video=$request->get('video');
         $equipos->red=$request->get('red');
         $equipos->bateria=$request->get('bateria');

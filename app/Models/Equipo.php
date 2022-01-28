@@ -18,5 +18,6 @@ class Equipo extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+   
     
 }

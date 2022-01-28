@@ -10,14 +10,15 @@ class Mantenimiento extends Model
 {
     use HasFactory;
 
-    public function equipo()
-    {
-        return $this->hasOne(Equipo::class,'id');
-    }
+    
 
     public function usuario()
     {
-        return $this->hasOne(User::class,'id');
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function responsable_equipo()
+    {
+        return $this->belongsTo(Responsable_Equipo::class,'responsable_equipo_id');
     }
 }
 

@@ -14,33 +14,28 @@
             <th scope="cool">Codigo</th>
             <th scope="cool">Patrimonio</th>
             <th scope="cool">Equipo</th>
+            <th scope="cool">Responsable</th>
+            <th scope="cool">Area</th>
             <th scope="cool">Fecha de Entrada</th>
-            <th scope="cool">Estado</th>
-            <th scope="cool">Fecha de Salida</th>
+            <th scope="cool">Fecha de Entrega</th>
             <th scope="cool">Acciones</th>
         </tr>
     </thead>
     <body>
         @foreach ($mantenimientos as $mantenimiento)
         <tr>
-            @foreach ($caracteristicas as $caracteristica)
-                @if($caracteristica->id==$mantenimiento->equipo)
-                    <td>{{ 'EQUIPO'.$caracteristica->id }}</td>
-                    <td>{{ $caracteristica->patrimonio }}</td>
-                    @foreach ($equipos as $equipo)
-                        @if($equipo->id==$caracteristica->marca)
-                            <td>{{ $equipo->name }}</td>
-                            <td>{{ $mantenimiento->entrada }}</td>
-                            @if($caracteristica->estado==1)
-                            <td>OPERATIVO</td>
-                            @else
-                            <td>INOPERATIVO</td>
-                            @endif
-                            <td>{{ $mantenimiento->fecha_entrega }}</td>
-                        @endif
-                    @endforeach
-                @endif
-            @endforeach
+            @foreach ($mantenimientos as $mantenimiento)
+        <tr>
+            <td>{{$mantenimiento->id}}</td>
+            <td>{{$mantenimiento->responsable_equipo->equipo->patrimonio}}</td>
+            <td>{{$mantenimiento->responsable_equipo->equipo->tipo}}</td>
+            <td>{{$mantenimiento->responsable_equipo->responsable->nombre}}</td>
+            <td>{{$mantenimiento->responsable_equipo->responsable->area}}</td>
+            <td>{{$mantenimiento->fecha_entrada}}</td>
+            <td>{{$mantenimiento->fecha_entrega}}</td>
+  
+            
+        @endforeach
             <td>
                 <form action="{{ route ('historiales.destroy', $mantenimiento->id) }}" method="POST">
                     @can('historiales.edit')

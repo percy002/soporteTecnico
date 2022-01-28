@@ -5,7 +5,7 @@
 @section('content')
 <h1><strong>RECOJO DEL EQUIPO</strong></h1>
 
-<form action="/mantenimientos/{{$mantenimientos->id}}" method="POST">
+<form action="/mantenimientos/{{$mantenimiento->id}}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3 col-4">
@@ -14,27 +14,37 @@
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Encargado</label>
-        <input id="encargado" name="encargado" type="text" value="{{$mantenimientos->encargado}}" class="form-control" tabindex="2" readonly>
+        <input id="encargado" name="encargado" type="text" value="{{$mantenimiento->usuario->name}}" class="form-control" tabindex="2" readonly>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Equipo que se dara mantenimiento</label>
-        <input id="equipo" name="equipo" type="text" class="form-control" value="{{ 'EQUIPO'.$caracteristicas->id .'|'. $equipos->tipo .'-'. $equipos->name }}" tabindex="3" readonly>
+        <input id="equipo" name="equipo" type="text" class="form-control" value="{{ 'EQUIPO'.$mantenimiento->responsable_equipo->equipo->id .'|'. $mantenimiento->responsable_equipo->equipo->tipo .'-'. $mantenimiento->responsable_equipo->equipo->marca }}" tabindex="3" readonly>
     </div>
+
+    {{-- <div class="mb-3 col-4">
+        <label for="" class="form-label">Equipo que se dara mantenimiento</label>
+        <select id="equipo" name="equipo" class="form-control selectpicker" data-live-search="true" tabindex="3" required>
+            
+                @foreach($responsable_equipos as $responsable_equipo)
+                        <option value="{{$responsable_equipo->equipo->id}}">{{ 'EQUIPO'.$responsable_equipo->equipo->id." | ".$responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->responsable->nombre }}</option>
+                    
+                @endforeach
+        </select>
+    </div> --}}
+
     <div class="mb-3 col-4">
         <label for="" class="form-label">Persona que recoje el equipo</label>
-        <input id="persona" name="persona" type="text" class="form-control" value="{{$trabajadores->name}}" tabindex="4" required>
+        <input id="persona" name="persona" type="text" class="form-control" value="{{$mantenimiento->responsable_equipo->responsable->nombre}}" tabindex="4" required>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">DNI de la persona</label>
-        <input id="DNI" name="DNI" type="text" class="form-control" value="{{$trabajadores->DNI}}" tabindex="5" required>
+        <input id="DNI" name="DNI" type="text" class="form-control" value="{{$mantenimiento->responsable_equipo->responsable->dni}}" tabindex="5" required>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Estado</label>
-        @if ($mantenimientos->estado==1)
-            <input id="estado" name="estado" type="text" class="form-control" value="OPERATIVO" tabindex="6" readonly>
-        @else
-            <input id="estado" name="estado" type="text" class="form-control" value="INOPERATIVO" tabindex="6" readonly>
-        @endif
+        
+            <input id="estado" name="estado" type="text" class="form-control" value="{{$mantenimiento->estado}}" tabindex="6" readonly>
+        
     </div>
     <a href="/mantenimientos" class="btn btn-secondary" tabindex="8">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="7">Guardar</button>

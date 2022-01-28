@@ -32,16 +32,18 @@ class MantenimientoController extends Controller
     
     public function index()
     {
-        $mantenimientos=DB::table('mantenimientos')->where('entregado','=','0')->where('fecha_entrega','=',null)->get();
-        dd($mantenimientos);
+        // $mantenimientos=DB::table('mantenimientos')->where('entregado','=','0')->where('fecha_entrega','=',null)->get();
+        $mantenimientos=Mantenimiento::where('entregado','No entregado')->get();
+        // dd($mantenimientos);
+
+        // dd($mantenimientos);
         // $trabajadores=DB::table('trabajadores')->get();
         
         $responsable=Responsable::all();
         $equipos=Equipo::all();
         $users=User::all();
-        $personas=DB::table('personas')->get();
         
-        return view('mantenimiento\index')->with('equipos',$equipos)->with('mantenimientos',$mantenimientos)->with('personas',$personas);
+        return view('mantenimiento\index')->with('mantenimientos',$mantenimientos);
     }
 
     /**
@@ -68,8 +70,7 @@ class MantenimientoController extends Controller
     public function store(Request $request)
     {
         $mantenimientos=new Mantenimiento();
-
-        $mantenimientos->fecha_entrada=$request->get('entrada');
+        $mantenimientos->fecha_entrada=Carbon::now()->toDateTimeString();
         $mantenimientos->user_id=$request->get('encargado');
 
         $personas=DB::table('personas')->where('name','=',$mantenimientos->encargado)->get();
@@ -83,7 +84,7 @@ class MantenimientoController extends Controller
         $mantenimientos->causa=$request->get('causa');
         $mantenimientos->solucion=$request->get('solucion');
         $mantenimientos->observacion=$request->get('observacion');
-        $mantenimientos->estado=$request->get('estado');
+        $mantenimientos->estado=0;
         // dd($request->get('estado'));
 
         $equipo=Responsable_Equipo::find($mantenimientos->responsable_equipo_id)->equipo;
@@ -123,11 +124,11 @@ class MantenimientoController extends Controller
     public function edit($id)
     {
         $fechas=date('Y-m-d');
-        $mantenimientos=Mantenimiento::find($id);
-        $caracteristicas=Caracteristica::find($mantenimientos->equipo);
+        $mantenimiento=Mantenimiento::find($id);
+        // $caracteristicas=Caracteristica::find($mantenimientos->equipo);
         // $trabajadores=Trabajadore::find($caracteristicas->responsable);
-        $equipos=Equipo::find($mantenimento->equipo_id);
-        return view('mantenimiento.edit')->with('mantenimientos',$mantenimientos)->with('caracteristicas',$caracteristicas)->with('equipos',$equipos)->with('fechas',$fechas)->with('responsable',$responsable);
+        // $equipos=Equipo::find($mantenimento->equipo_id);
+        return view('mantenimiento.edit')->with('mantenimiento',$mantenimiento)->with('fechas',$fechas);
     }
 
     /**
@@ -141,29 +142,34 @@ class MantenimientoController extends Controller
     {
 
         $mantenimientos=Mantenimiento::find($id);
+        // $responsable=Responsable::find($mantenimientos->responsable_equipo_id->id);
+        // $responsable=$mantenimento->responsable_equipo->responsable;
 
         $mantenimientos->fecha_entrega=$request->get('fecha_entrega').' 00:00:00';
-        $mantenimientos->persona=$request->get('persona');
-        $mantenimientos->DNI=$request->get('DNI');
 
-        $caracteristicas=Caracteristica::find($mantenimientos->equipo);
+
+
+
+        // $responsable->$mantenimientos->responsable_equipo->id=$request->get('persona');
+
+        // $caracteristicas=Caracteristica::find($mantenimientos->equipo);
         // $trabajadores=Trabajadore::find($caracteristicas->responsable);
-        $mantenimientosR=DB::table('mantenimientos')->where('fecha_entrega','=',null)->get();
-        $caracteristicasR=DB::table('caracteristicas')->where('responsable','=',$caracteristicas->responsable)->get();
+        // $mantenimientosR=DB::table('mantenimientos')->where('fecha_entrega','=',null)->get();
+        // $caracteristicasR=DB::table('caracteristicas')->where('responsable','=',$caracteristicas->responsable)->get();
 
         $mantenimientos->save();
 
-        foreach($mantenimientosR as $mantenimento){
-            foreach($caracteristicasR as $caracteristica){
-                if($mantenimento->equipo==$caracteristica->id){
-                    $mantenimientoID=Mantenimiento::find($mantenimento->id);
-                    $mantenimientoID->fecha_entrega=$mantenimientos->fecha_entrega;
-                    $mantenimientoID->save();
-                }
-            }
-        }
+        // foreach($mantenimientosR as $mantenimento){
+        //     foreach($caracteristicasR as $caracteristica){
+        //         if($mantenimento->equipo==$caracteristica->id){
+        //             $mantenimientoID=Mantenimiento::find($mantenimento->id);
+        //             $mantenimientoID->fecha_entrega=$mantenimientos->fecha_entrega;
+        //             $mantenimientoID->save();
+        //         }
+        //     }
+        // }
 
-        $equipos=DB::table('equipos')->get();
+        // $equipos=DB::table('equipos')->get();
         
         return redirect('/reporte');
     }
@@ -199,8 +205,8 @@ class MantenimientoController extends Controller
     public function entregar($id){
         $fechaSalida=Carbon::now()->toDateTimeString();
         $mantenimento=Mantenimiento::find($id);
-        $mantenimento->entregado=1;
-        $mantenimento->fecha_entrega=Carbon::now()->toDateTimeString();;
+        $mantenimento->entregado="Entregado";
+        $mantenimento->fecha_entrega=Carbon::now()->toDateTimeString();
         $mantenimento->save();
         
         return redirect('/mantenimientos');

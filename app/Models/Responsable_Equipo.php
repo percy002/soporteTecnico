@@ -12,11 +12,11 @@ class Responsable_Equipo extends Model
 
     public function equipo()
     {
-        return $this->hasOne(Equipo::class, 'id');
+        return $this->belongsTo(Equipo::class, 'equipo_id');
     }
 
     public function responsable()
     {
-        return $this->hasOne(Responsable::class, 'id');
+        return $this->belongsTo(Responsable::class, 'responsable_id');
     }
 }

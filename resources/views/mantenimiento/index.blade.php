@@ -32,43 +32,12 @@
         @foreach ($mantenimientos as $mantenimiento)
         <tr>
             <td>{{$mantenimiento->id}}</td>
-            <td>{{$mantenimiento->equipo->patrimonio}}</td>
-            <td>{{$equipo->id}}</td>
-            <td>{{$responsable->nombre}}</td>
-            <td>{{$responsable->area}}</td>
+            <td>{{$mantenimiento->responsable_equipo->equipo->patrimonio}}</td>
+            <td>{{$mantenimiento->responsable_equipo->equipo->tipo}}</td>
+            <td>{{$mantenimiento->responsable_equipo->responsable->nombre}}</td>
+            <td>{{$mantenimiento->responsable_equipo->responsable->area}}</td>
             <td>{{$mantenimiento->fecha_entrada}}</td>
-            {{-- @foreach ($caracteristicas as $caracteristica)
-                @if($caracteristica->id==$mantenimiento->equipo)
-                    <td>{{ 'EQUIPO'.$caracteristica->id }}</td>
-                    <td>{{ $caracteristica->patrimonio }}</td>
-                    @foreach ($equipos as $equipo)
-                        @if($equipo->id==$caracteristica->marca)
-                            <td>{{ $equipo->name }}</td>
-                        @endif
-                    @endforeach
-                    
-                    @foreach ($trabajadores as $trabajadore)
-                        @if($trabajadore->id==$caracteristica->responsable)
-                            <td>{{ $trabajadore->name }}</td>
-                        @endif
-                    @endforeach
-                    @foreach ($trabajadores as $trabajadore)
-                        @if($trabajadore->id==$caracteristica->responsable)
-                            <td>{{ $trabajadore->lugar }}</td>
-                        @endif
-                    @endforeach
-                @endif
-            @endforeach
-            <td>{{ $mantenimiento->entrada }}</td> --}}
 
-            
-
-            {{-- @if ($mantenimiento->estado==1)
-                <td>Listo</td>
-            @else
-                <td>Pendiente</td>
-
-            @endif --}}
             @if (Auth::user()->rol == 'administrador')
             <td>
                 {{-- {{ Auth::user()->roles }} --}}
@@ -89,7 +58,7 @@
             @endif
             <td>
                 @if (Auth::user()->rol == 'administrador')
-                    @if($mantenimiento->entregado==0 && $mantenimiento->estado==1)
+                    @if($mantenimiento->entregado=="No entregado" && $mantenimiento->estado==1)
                         <a href="/mantenimiento/{{$mantenimiento->id}}/entregar" class="btn btn-info">Entregar equipo</i></a>
                     @else
                         ----------

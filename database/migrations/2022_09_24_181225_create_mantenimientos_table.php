@@ -17,14 +17,14 @@ class CreateMantenimientosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('responsable_equipo_id');
             $table->unsignedBigInteger('user_id');
-            $table->date('fecha_entrada');
+            $table->datetime('fecha_entrada');
             $table->text('problema')->nullable();
             $table->text('causa')->nullable();
             $table->text('solucion')->nullable();
             $table->text('observacion')->nullable();
-            $table->integer('estado');
-            $table->integer('entregado')->default(0);
-            $table->date('fecha_entrega')->nullable();
+            $table->integer('estado')->default(0);
+            $table->string('entregado')->default('No entregado');
+            $table->datetime('fecha_entrega')->nullable();
             
             
             $table->timestamps();

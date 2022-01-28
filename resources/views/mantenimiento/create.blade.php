@@ -23,8 +23,8 @@
         <label for="" class="form-label">Equipo que se dara mantenimiento</label>
         <select id="equipo" name="equipo" class="form-control selectpicker" data-live-search="true" tabindex="3" required>
             
-                @foreach($responsable_equipos as $res_equipo)
-                        <option value="{{$res_equipo->equipo->id}}">{{ 'EQUIPO'.$res_equipo->equipo->id." | ".$res_equipo->equipo->tipo." - ".$res_equipo->equipo->marca." | ".$res_equipo->responsable->nombre }}</option>
+                @foreach($responsable_equipos as $responsable_equipo)
+                        <option value="{{$responsable_equipo->equipo->id}}">{{ 'EQUIPO'.$responsable_equipo->equipo->id." | ".$responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->responsable->nombre }}</option>
                     
                 @endforeach
         </select>
@@ -45,13 +45,13 @@
         <label for="" class="form-label">Observacion</label>
         <textarea id="observacion" name="observacion" cols="100" rows="3" tabindex="7"></textarea>
     </div>
-    <div class="mb-3 col-4">
+    {{-- <div class="mb-3 col-4">
         <label for="" class="form-label">Estado</label>
         <select id="estado" name="estado" class="form-control" tabindex="8" required>
             <option value=1 selected>OPERATIVO</option>
             <option value=0>INOPERATIVO</option>
         </select>
-    </div>
+    </div> --}}
     <a href="/users" class="btn btn-secondary" tabindex="10">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="9">Guardar</button>
 </form>
