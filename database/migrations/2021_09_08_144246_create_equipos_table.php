@@ -31,8 +31,8 @@ class CreateEquiposTable extends Migration
             $table->string('red')->nullable();
             $table->string('bateria')->nullable();
             $table->string('lectora')->nullable();
-            $table->string('tamaño_disco')->nullable();
-            $table->string('estado');
+            $table->string('tamaño')->nullable();
+            $table->string('estado')->default("OPERATIVO");
             $table->timestamps();
 
 

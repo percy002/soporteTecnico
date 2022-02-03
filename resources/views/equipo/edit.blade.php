@@ -19,7 +19,7 @@
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Marca</label>
-        <input id="marca" name="marca" type="text" value="{{$equipo->name}}" class="form-control" tabindex="3" readonly />
+        <input id="marca" name="marca" type="text" value="{{$equipo->marca}}" class="form-control" tabindex="3" readonly />
     </div>
 
     @if($equipo->tipo=="CPU")
@@ -100,7 +100,7 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">RAM</label>
-                        <input id="RAM" name="RAM" type="number" value="{{$equipo->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
+                        <input id="ram" name="ram" type="number" value="{{$equipo->ram}}" min="4" max="32" class="form-control" tabindex="8" required>
                     </div>
                     <?php $separador2 = explode(" ", $equipo->disco); ?>
                     <div class="mb-3 col-4">
@@ -190,7 +190,7 @@
                     <?php $separador1 = explode("-", $equipo->procesador); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Procesador</label>
-                        <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required>
+                        {{-- <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required> --}}
                         <select id="aux1" name="aux1" class="form-control" onchange="showresult(this.value)" required>
                             <option hidden selected>{{$separador1[0]}}</option>
                             <option value="Intel">Intel</option>
@@ -246,7 +246,7 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">RAM</label>
-                        <input id="RAM" name="RAM" type="number" value="{{$equipo->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
+                        <input id="ram" name="ram" type="number" value="{{$equipo->RAM}}" min="4" max="32" class="form-control" tabindex="8" required>
                     </div>
                     <?php $separador2 = explode(" ", $equipo->disco); ?>
                     <div class="mb-3 col-4">

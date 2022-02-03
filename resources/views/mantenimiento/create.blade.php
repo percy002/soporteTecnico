@@ -24,7 +24,10 @@
         <select id="equipo" name="equipo" class="form-control selectpicker" data-live-search="true" tabindex="3" required>
             
                 @foreach($responsable_equipos as $responsable_equipo)
-                        <option value="{{$responsable_equipo->equipo->id}}">{{ 'EQUIPO'.$responsable_equipo->equipo->id." | ".$responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->responsable->nombre }}</option>
+                    @if ($responsable_equipo->equipo->estado=="OPERATIVO")
+                        
+                    <option value="{{$responsable_equipo->equipo->id}}">{{ $responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->responsable->nombre }}</option>
+                    @endif
                     
                 @endforeach
         </select>
@@ -52,7 +55,7 @@
             <option value=0>INOPERATIVO</option>
         </select>
     </div> --}}
-    <a href="/users" class="btn btn-secondary" tabindex="10">Cancelar</a>
+    <a href="/mantenimientos" class="btn btn-secondary" tabindex="10">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="9">Guardar</button>
 </form>
 @stop
@@ -64,4 +67,5 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/i18n/valorespredeterminados-*.min.js"> </script>
+
 @stop

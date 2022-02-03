@@ -9,6 +9,7 @@ use App\Models\Equipo;
 use App\Models\Caracteristica;
 use App\Models\Mantenimiento;
 use App\Models\Trabajadore;
+Use Carbon\Carbon;
 
 class HistorialController extends Controller
 {
@@ -21,14 +22,29 @@ class HistorialController extends Controller
     public function __construct(){
         $this->middleware('auth'); 
     }
+    public function show_x_date(Request $request)
+    {
+        // dd($request->get('fecha_inicio'));
+        $fecha_inicio=$request->get('fecha_inicio');
+        $fecha_fin= $request->get('fecha_fin');
+        $mantenimientos=Mantenimiento::where('entregado','Entregado')->whereBetween('fecha_entrega', [(new Carbon($request->get('fecha_inicio')))->subDays(1)->toDateString(), (new Carbon($request->get('fecha_fin')))->addDays(1)->toDateString()])->get();
+        
+        return view('historial.index',compact('fecha_inicio','fecha_fin'))->with('mantenimientos',$mantenimientos);
+    }
 
     public function index()
     {
+        $fecha_inicio=(new Carbon('2022-01-01'))->toDateString();
+        $fecha_fin=Carbon::now()->toDateString();
+        $fecha_mañana=Carbon::tomorrow()->toDateString();
         // $mantenimientos=DB::table('mantenimientos')->where('fecha_entrega','!=',null)->get();
-        $mantenimientos=Mantenimiento::where('entregado','Entregado')->get();
+        $mantenimientos=Mantenimiento::where('entregado','Entregado')->whereBetween('fecha_entrega', [$fecha_inicio,$fecha_mañana])->get();
+        // dd(Carbon::tomorrow()->toDateString());
         // $caracteristicas=DB::table('caracteristicas')->get();
         // $equipos=DB::table('equipos')->get();
-        return view('historial.index')->with('mantenimientos',$mantenimientos);
+        // dd($mantenimientos);
+        return view('historial.index',compact('fecha_inicio','fecha_fin'))->with('mantenimientos',$mantenimientos);
+        
     }
 
     /**

@@ -12,7 +12,7 @@
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">DNI</label>
-        <input id="DNI" name="DNI" type="text" class="form-control" value="{{$personas->DNI}}" tabindex="2" readonly />
+        <input id="DNI" name="DNI" type="text" class="form-control" value="{{$personas->dni}}" tabindex="2" readonly />
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Celular</label>
@@ -20,11 +20,11 @@
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Usuario</label>
-        <input id="usuario" name="usuario" type="email" value="{{$personas->usuario}}" class="form-control" tabindex="4" required>
+        <input id="usuario" name="usuario" type="email" value="{{$personas->email}}" class="form-control" tabindex="4" required>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Contraseña</label>
-        <input id="contraseña" name="contraseña" type="text" value="{{$personas->contraseña}}" class="form-control" tabindex="5" required>
+        <input id="contraseña" name="contraseña" type="text" value="" class="form-control" tabindex="5" required>
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Rol</label>

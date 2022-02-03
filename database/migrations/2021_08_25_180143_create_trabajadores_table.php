@@ -18,7 +18,12 @@ class CreateTrabajadoresTable extends Migration
             $table->string('nombre');
             $table->string('dni');
             $table->string('celular')->nullable();
-            $table->string('area');
+            
+            // $table->string('cargo')->nullable();
+            // $table->string('area')->nullable();
+            // $table->string('gerencia')->nullable();
+            // $table->string('subgerencia')->nullable();
+            // $table->string('local')->nullable();
             $table->string('observacion')->nullable();
             $table->timestamps();
         });

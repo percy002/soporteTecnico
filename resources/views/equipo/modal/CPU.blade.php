@@ -1,4 +1,4 @@
-<form action="{{route('equipos.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('equipos.store')}}" method="post" enctype="multipart/form-data" autocomplete="nope">
     {{ csrf_field() }}
     <div class="modal fade text-left" id="ModalCreateCPU" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Codigo Patrimonial</label>
-                        <input id="patrimonio" name="patrimonio" type="text" class="form-control" required>
+                        <input id="patrimonio" name="patrimonio" type="text" class="form-control" autocomplete="off" typeage required>
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Marca</label>
@@ -29,7 +29,7 @@
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Sistema Operativo</label>
                         <select id="sistema" name="sistema" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="Windows 7 - 32 bits">Windows 7 - 32 bits</option>
                             <option value="Windows 7 -64 bits">Windows 7 - 64 bits</option>
                             <option value="Windows 8 - 32 bits">Windows 8 - 32 bits</option>
@@ -37,35 +37,35 @@
                             <option value="Windows 8.1 - 32 bits">Windows 8.1 - 32 bits</option>
                             <option value="Windows 8.1 - 64 bits">Windows 8.1 - 64 bits</option>
                             <option value="Windows 10 - 32 bits">Windows 10 - 32 bits</option>
-                            <option value="Windows 10 - 64 bits">Windows 10 - 64 bits</option>
+                            <option value="Windows 10 - 64 bits" selected>Windows 10 - 64 bits</option>
                         </select>
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Procesador</label>
-                        <input id="velocidad" name="velocidad" type="number" min="1" max="10" required>
+                        {{-- <input id="velocidad" name="velocidad" type="number" min="1" max="10" value="" required> --}}
                         <select id="procesador_marca" name="procesador_marca" class="form-control" onchange="showresult(this.value)" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="Intel">Intel</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
+                            <option value="Intel" selected>Intel</option>
                             <option value="AMD">AMD</option>
                         </select>
-                        <select id="procesador1" name="procesador" class="form-control" style="display:none">
-                            <option hidden selected>Selecciona una opción</option>
+                        <select id="procesador1" name="procesador1" class="form-control" style="display:none">
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="Centrino">Centrino</option>
                             <option value="Core 2 Duo">Core 2 Duo</option>
                             <option value="Core 2 Quad">Core 2 Quad</option>
                             <option value="Pentium IV">Pentium IV</option>
                             <option value="Pentium D">Pentium D</option>
-                            <option value="Core I3">Core I3</option>
+                            <option value="Core I3" selected>Core I3</option>
                             <option value="Core I5">Core I5</option>
                             <option value="Core I7">Core I7</option>
                         </select>
-                        <select id="procesador2" name="procesador" class="form-control" style="display:none">
-                            <option hidden selected>Selecciona una opción</option>
+                        <select id="procesador2" name="procesador2" class="form-control" style="display:none">
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="AMD E">AMD E</option>
                             <option value="Athon II">Athon II</option>
                             <option value="Athon VI">Athon VI</option>
                             <option value="Ryzen 2000">Ryzen 2000</option>
-                            <option value="Ryzen 3000">Ryzen 3000</option>
+                            <option value="Ryzen 3000" selected>Ryzen 3000</option>
                             <option value="Ryzen 5000">Ryzen 5000</option>
                         </select>
                     </div>
@@ -80,19 +80,19 @@
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">RAM</label>
-                        <input id="ram" name="ran" type="number" min="4" max="32" class="form-control" required>
+                        <input id="ram" name="ram" type="number" min="4" max="32" class="form-control" required>
                     </div>
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Tipo de Disco</label>
                         <select id="disco1" name="disco1" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="Solido">Solido</option>
-                            <option value="Mecanico">Mecanico</option>
+                            <option value="Mecanico" selected>Mecanico</option>
                         </select><br>
                         <label for="" class="form-label">Tamaño de Disco</label>
                         <select id="aux2" name="aux2" onchange="showresult(this.value)" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="GB">GB</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
+                            <option value="GB" selected>GB</option>
                             <option value="Teras">Teras</option>
                         </select>
                         <input id="disco11" name="disco11" type="number" min="1" max="30" class="form-control" style="display:none">
@@ -101,9 +101,9 @@
                     <div class="form-group mb-3 col-5">
                         <label for="" class="form-label">Video</label><br>
                         <select id="aux3" name="aux3" class="form-control" onchange="showresult(this.value)" required>
-                            <option hidden selected>Selecciona una opción</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value=4>Si tiene</option>
-                            <option value=5>No tiene</option>
+                            <option value=5 selected>No tiene</option>
                         </select>
                         <input id="video" name="video" type="number" min="1" max="16" style="display:none" class="form-control">
                     </div>
@@ -126,32 +126,15 @@
                     <div class="mb-3 col-5">
                         <label for="" class="form-label">Lectora</label>
                         <select id="lectora" name="lectora" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value=1>SI</option>
-                            <option value=0>NO</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
+                            <option value=SI>SI</option>
+                            <option value=NO selected>NO</option>
                         </select>
                     </div>
-                    <div class="mb-3 col-5">
-                        <h3><label for="" class="form-label">Estado</label></h3><br>
-                        <select id="estado" name="estado" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="OPERATIVO">OPERATIVO</option>
-                            <option value="INOPERATIVO">INOPERATIVO</option>
-                        </select>
-                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
-                    </div>
+                   
 
-                    <div class="trabajador">
-
-                        <div>    
-                            @include('equipo.modal.includetrabajador')
-                        </div>
-                        <div class="trabajador_imagen">
-                            <img Align="right" width="300" height="250" src="https://previews.123rf.com/images/sudowoodo/sudowoodo1507/sudowoodo150700014/42186961-los-empresarios-j%C3%B3venes-hombre-y-mujer-en-el-estilo-de-dibujos-animados-en-el-juego-con-la-maleta-ai.jpg">
-                            <img Align="right" width="300" height="250" src="https://previews.123rf.com/images/sudowoodo/sudowoodo1507/sudowoodo150700014/42186961-los-empresarios-j%C3%B3venes-hombre-y-mujer-en-el-estilo-de-dibujos-animados-en-el-juego-con-la-maleta-ai.jpg">
-
-                        </div>
-                    </div>
+                    @include('equipo.modal.includetrabajador')
+                   
 
 
                     <div class="col-xs-12 col-sm-12 col-md-12>">
@@ -164,12 +147,45 @@
         </div>
     </div>
 </form>
+
 @section('css')
 {{-- <link rel="stylesheet" href={{mix('style.css')}}> --}}
 <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 @stop
 
 @section('js')
+    <script>
+        // path="{{url('equipos/buscar')}}";
+        // $('#patrimonio').typeahead({
+        //     $ajax({
+        //         url:'{{route('equipos.buscar')}}',
+        //         type:'post',
+        //         dataType:'json',
+        //         data{
+        //             _token:CSRF_TOKEN,
+        //             search:request.term
+        //         },
+        //         success:function(data) {
+        //             response(data);
+        //         }
+        //     })
+        // })
+
+        // $('#patrimonio').autocomplete({
+        //     source: function(request,response){
+        //         $.ajax({
+        //             url:'{{route('equipos.buscar')}}',
+        //             datatype:'json',
+        //             data:{
+        //                 term: request.term
+        //             }
+        //             success: function(data){
+        //                 response(data)
+        //             }
+        //         })
+        //     }
+        // })
+    </script>
     <script>
         function showresult(str) {
             if (str == "Intel") {

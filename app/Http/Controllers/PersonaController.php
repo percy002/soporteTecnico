@@ -14,6 +14,7 @@ use Spatie\Permission\Models\Permission;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Contracts\DeletesUsers;
+use Dompdf\Dompdf;
 
 class PersonaController extends Controller
 {
@@ -27,9 +28,33 @@ class PersonaController extends Controller
         $this->middleware('auth');
     }
 
+    public function reporteUsuario(){
+        // logo superior reportes
+        $path=base_path('logo-mario-1.jpg');
+        $type=pathinfo($path,PATHINFO_EXTENSION);
+        $data=file_get_contents($path);
+        $pic='data:image/'.$type.';base64,'.base64_encode($data);
+
+        $dompdf = new Dompdf();
+        // dd($dompdf);
+        $dompdf->loadHtml(view('reportes.layoutreportes',compact('pic')));
+        // dd($dompdf);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        return $dompdf->stream();
+        // return redirect()->back();
+        // Output the generated PDF to Browser
+        
+    }
+
+
     public function index()
     {
-        $personas = Persona::all();
+        $personas = User::all();
         return view('persona.index')->with('personas',$personas);
     }
 
@@ -51,23 +76,24 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        $personas=new Persona();
-        $personas->name=$request->get('name');
-        $personas->celular=$request->get('celular');
-        $personas->DNI=$request->get('DNI');
-        $personas->usuario=$personas->DNI.'@gmail.com';
-        $personas->contraseña=$personas->DNI;
-        $personas->rol=$request->get('rol');
-        $personas->cuenta=1;
+        // $personas=new Persona();
+        // $personas->name=$request->get('name');
+        // $personas->celular=$request->get('celular');
+        // $personas->DNI=$request->get('dni');
+        // $personas->usuario=$personas->DNI.'@gmail.com';
+        // $personas->contraseña=$personas->DNI;
+        // $personas->rol=$request->get('rol');
+        // $personas->cuenta=1;
 
         User::create([
-            'name' => $personas->name,
-            'email' => $personas->usuario,
-            'rol' => $personas->rol,
-            'password' =>  bcrypt($personas->contraseña),
-        ])->assignRole($personas->rol);
+            'name' => $request->get('name'),
+            'dni' => $request->get('dni'),
+            'email' => $request->get('dni').'@gmail.com',
+            'rol' => $request->get('rol'),
+            'password' =>  bcrypt($request->get('dni')),
+        ])->assignRole($request->get('rol'));
 
-        $personas->save();
+        // $personas->save();
 
         return redirect('/personas');
     }
@@ -91,7 +117,7 @@ class PersonaController extends Controller
      */
     public function edit($id)
     {
-        $personas=Persona::find($id);
+        $personas=User::find($id);
         return view('persona.edit')->with('personas',$personas);
     }
 
@@ -104,23 +130,22 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $personas=Persona::find($id);
-        $aux=$personas->usuario;
-        $personas->celular=$request->get('celular');
-        $personas->usuario=$request->get('usuario');
-        $personas->contraseña=$request->get('contraseña');
-        $personas->rol=$request->get('rol');
+        // $personas=Persona::find($id);
+        // $aux=$personas->usuario;
+        // $personas->celular=$request->get('celular');
+        // $personas->usuario=$request->get('usuario');
+        // $personas->contraseña=$request->get('contraseña');
+        // $personas->rol=$request->get('rol');
 
-        $users=DB::table('users')->where('email','=',$aux)->get();
-        foreach($users as $userunico){
-            $user=User::find($userunico->id);
-            $user->email= $personas->usuario;
-            $user->rol= $request->get('rol');
-            $user->password= bcrypt($personas->contraseña);
-            $user->getResource()->save();//update
-        }
+        $user=User::find($id);
+        // dd($user);
+        $user->email= $request->get('usuario');
+        $user->rol= $request->get('rol');
+        $user->password= bcrypt($request->get('contraseña'));
+        $user->save();//update
+       
 
-        $personas->save();
+        // $personas->save();
 
         return redirect('/personas');
     }
@@ -138,13 +163,13 @@ class PersonaController extends Controller
 
     public function habilitar($id)
     {
-        $personas=Persona::find($id);
-        $personas->cuenta=1;
-        $personas->save();
+        // $personas=Persona::find($id);
+        // $personas->cuenta=1;
+        // $personas->save();
 
-        $aux=DB::table('users')->where('email','=',$personas->usuario)->get();        
+        // $aux=DB::table('users')->where('email','=',$personas->usuario)->get();        
         
-        $usuarios=User::find($aux[0]->id);
+        $usuarios=User::find($id);
         $usuarios->active=1;
         $usuarios->save();
 
@@ -160,13 +185,13 @@ class PersonaController extends Controller
     }
     public function desabilitar($id)
     {
-        $personas=Persona::find($id);
-        $personas->cuenta=0;
-        $personas->save();
-        $aux=DB::table('users')->where('email','=',$personas->usuario)->get();
+        // $personas=Persona::find($id);
+        // $personas->cuenta=0;
+        // $personas->save();
+        // $aux=DB::table('users')->where('email','=',$personas->usuario)->get();
         
         
-        $usuarios=User::find($aux[0]->id);
+        $usuarios=User::find($id);
         $usuarios->active=0;
         $usuarios->save();
         return redirect('/personas');

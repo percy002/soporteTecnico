@@ -32,15 +32,7 @@
                         </select>
                     </div>
                     <img Align="right" width="360" height="200" src="https://m.media-amazon.com/images/I/61omhLgunpL._AC_SY450_.jpg">
-                    <div class="mb-3 col-5">
-                        <h3><label for="" class="form-label">Estado</label></h3><br>
-                        <select id="estado" name="estado" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="OPERATIVO">OPERATIVO</option>
-                            <option value="INOPERATIVO">INOPERATIVO</option>
-                        </select>
-                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
-                    </div>
+                   
 
                     @include('equipo.modal.includetrabajador')
                     

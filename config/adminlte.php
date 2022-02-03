@@ -237,10 +237,7 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+        
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -258,7 +255,7 @@ return [
             'url'         => 'mantenimientos',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
-            'can'         => 'mantenimientos.index',
+            // 'can'         => 'mantenimientos.index',
         ],
         [
             'text'        => 'Historial',
@@ -281,9 +278,9 @@ return [
             'label_color' => 'success',
             'can'         => 'personas.index',
         ],
-        ['header' => 'account_settings'],
+        // ['header' => 'account_settings'],
         [
-            'text' => 'Responsable',
+            'text' => 'Encargado de Soporte',
             'url'  => 'responsables',
             'icon' => 'fas fa-fw fa-user',
         ],

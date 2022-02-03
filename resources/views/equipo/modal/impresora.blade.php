@@ -36,15 +36,7 @@
                         </select>
                     </div>
                     <img Align="right" width="320" height="230" src="https://mediaserver.goepson.com/ImConvServlet/imconv/367d11aa327de16f51ea7f97fd57bbe5b4c503c0/1200Wx1200H?use=banner&assetDescr=19Lin_FAL_Black_13_1">
-                    <div class="mb-3 col-5">
-                        <h3><label for="" class="form-label">Estado</label></h3><br>
-                        <select id="estado" name="estado" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="OPERATIVO">OPERATIVO</option>
-                            <option value="INOPERATIVO">INOPERATIVO</option>
-                        </select>
-                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
-                    </div>
+                   
 
                     @include('equipo.modal.includetrabajador')
                     

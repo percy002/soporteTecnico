@@ -25,17 +25,19 @@ class CreateMantenimientosTable extends Migration
             $table->integer('estado')->default(0);
             $table->string('entregado')->default('No entregado');
             $table->datetime('fecha_entrega')->nullable();
-            
+
+            $table->foreign('responsable_equipo_id')->references('id')->on('responsable_equipos');
+            $table->foreign('user_id')->references('id')->on('users');
             
             $table->timestamps();
             
             // $table->foreign('equipo_id')->references('id')->on('equipos');
         });
 
-        Schema::table('mantenimientos', function($table) {
-            $table->foreign('responsable_equipo_id')->references('id')->on('responsable_equipos');
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+        // Schema::table('mantenimientos', function($table) {
+        //     $table->foreign('responsable_equipo_id')->references('id')->on('responsable_equipos');
+        //     $table->foreign('user_id')->references('id')->on('users');
+        // });
     }
 
     /**

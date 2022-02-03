@@ -20,6 +20,9 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
+    return view('dashboard');
+});
+Route::get('/login', function () {
     return view('auth/login');
 });
 
@@ -36,7 +39,7 @@ Route::get('mantenimiento/{id}/habilitar', [MantenimientoController::class, 'hab
 Route::get('mantenimiento/{id}/desabilitar', [MantenimientoController::class, 'desabilitar']);
 
 //entregar equipo
-Route::get('mantenimiento/{id}/entregar', [MantenimientoController::class, 'entregar']);
+Route::post('mantenimiento/{id}/entregar', [MantenimientoController::class, 'entregar'])->name('entregarEquipo');
 
 Route::get('equipos/CPU', function () {
     return view('equipo/modal/CPU');
@@ -59,6 +62,13 @@ Route::get('equipos/teclado', function () {
 Route::get('equipos/trabajador', function () {
     return view('equipo/modal/trabajador');
 });
+// autocompletar
+Route::get('equipos/buscar',[EquipoController::class],'buscar')->name('equipos.buscar');
+// reportes
+Route::post('historiales/historiales_fecha', [HistorialController::class,'show_x_date'])->name('historial_fecha');
+
+
+Route::get('personas/pdf', [PersonaController::class,'reporteUsuario'])->name('reporteUsuario');
 
 Route::resource('equipos', EquipoController::class);
 // Route::resource('caracteristicas', CaracteristicaController::class);
@@ -71,3 +81,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::post('login2', [LoginController::class,'authenticate'])->name('login2');
+
+
+

@@ -25,13 +25,15 @@ class MantenimientoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
-        $this->middleware('auth'); 
-    }
+    // public function __construct(){
+    //     $this->middleware('auth'); 
+    // }
 
     
     public function index()
     {
+        $fecha_inicio=new Carbon('2016-01-23');
+        $fecha_fin=Carbon::now()->toDateTimeString();
         // $mantenimientos=DB::table('mantenimientos')->where('entregado','=','0')->where('fecha_entrega','=',null)->get();
         $mantenimientos=Mantenimiento::where('entregado','No entregado')->get();
         // dd($mantenimientos);
@@ -43,7 +45,7 @@ class MantenimientoController extends Controller
         $equipos=Equipo::all();
         $users=User::all();
         
-        return view('mantenimiento\index')->with('mantenimientos',$mantenimientos);
+        return view('mantenimiento\index',compact('fecha_inicio','fecha_fin'))->with('mantenimientos',$mantenimientos);
     }
 
     /**
@@ -54,7 +56,7 @@ class MantenimientoController extends Controller
     public function create()
     {
         $fechas=date('Y-m-d');
-        $equipos=Equipo::all();
+        $equipos=Equipo::where("estado","OPERATIVO");
         $responsable_equipos=Responsable_Equipo::all();
         $mantenimientos=DB::table('mantenimientos')->where('fecha_entrega','=',null)->get();
         $users=User::all();
@@ -188,7 +190,11 @@ class MantenimientoController extends Controller
     public function habilitar($id)
     {
         $mantenimento=Mantenimiento::find($id);
-        $mantenimento->estado=1;
+
+        $equipo=Equipo::find($mantenimento->responsable_equipo->equipo->id);
+        $equipo->estado="OPERATIVO";
+
+        $equipo->save();
         $mantenimento->save();
         
         return redirect('/mantenimientos');
@@ -196,17 +202,57 @@ class MantenimientoController extends Controller
     public function desabilitar($id)
     {
         $mantenimento=Mantenimiento::find($id);
-        $mantenimento->estado=0;
+
+        $equipo=Equipo::find($mantenimento->responsable_equipo->equipo->id);
+        $equipo->estado="INOPERATIVO";
+
+        $equipo->save();
         $mantenimento->save();
         
+
         return redirect('/mantenimientos');
     }
 
-    public function entregar($id){
+    public function entregar(Request $request){
+        
+        // dd($request);
         $fechaSalida=Carbon::now()->toDateTimeString();
-        $mantenimento=Mantenimiento::find($id);
+        $mantenimento=Mantenimiento::find($request->id);
         $mantenimento->entregado="Entregado";
         $mantenimento->fecha_entrega=Carbon::now()->toDateTimeString();
+        
+        // $mantenimento->responsable_equipo->equipo->id
+        $equipo=Equipo::find($mantenimento->responsable_equipo->equipo->id);
+        $equipo->estado="OPERATIVO";
+
+        if(!$request->get('dni')==$mantenimento->usuario->dni)
+        {
+            $responsable_equipos=new Responsable_Equipo();
+            if(Responsable::where('dni',$request->get('dni'))->exists()){
+                $responsable=Responsable::where('dni',$request->get('dni'));
+
+                
+                $responsable_equipos->user_id=$responsable->id;
+
+            }
+            else {
+                $responsable = new Responsable();
+                $responsable->dni=$request->get('dni');
+                $responsable->nombre=$request->get('nombre');
+
+                $responsable->save();
+                $responsable_equipos->user_id=$responsable->id;
+
+            }
+
+            $responsable_equipos->equipo_id=$equipo->id;
+
+            $responsable_equipos->save();
+        }
+
+
+
+        $equipo->save();
         $mantenimento->save();
         
         return redirect('/mantenimientos');

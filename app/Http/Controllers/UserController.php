@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $personas = Persona::all();
+        $personas = User::all();
         return view('persona.index')->with('personas',$personas);
     }
 
@@ -42,23 +42,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $personas=new Persona();
-        $personas->name=$request->get('name');
-        $personas->celular=$request->get('celular');
-        $personas->DNI=$request->get('DNI');
-        $personas->usuario=$personas->DNI.'@gmail.com';
-        $personas->contraseña=$personas->DNI;
-        $personas->rol=$request->get('rol');
-        $personas->cuenta=1;
+        // $personas=new Persona();
+        // $personas->name=$request->get('name');
+        // $personas->celular=$request->get('celular');
+        // $personas->DNI=$request->get('dni');
+        // $personas->usuario=$personas->DNI.'@gmail.com';
+        // $personas->contraseña=$personas->DNI;
+        // $personas->rol=$request->get('rol');
+        // $personas->cuenta=1;
 
         User::create([
-            'name' => $personas->name,
-            'email' => $personas->usuario,
-            'rol' => $personas->rol,
-            'password' =>  bcrypt($personas->contraseña),
+            'name' => $request->get('name'),
+            'dni'=> $request->get('dni'),
+            'email' => $request->get('dni').'@gmail.com',
+            'rol' => $request->get('rol'),
+            'password' =>  bcrypt($request->get('dni')),
         ])->assignRole($personas->rol);
 
-        $personas->save();
+        // $personas->save();
 
         return redirect('/personas');
     }
@@ -83,7 +84,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $personas=Persona::find($id);
+        $personas=User::find($id);
         return view('persona.edit')->with('personas',$personas);
     }
 
@@ -97,23 +98,21 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $personas=Persona::find($id);
-        $aux=$personas->usuario;
-        $personas->celular=$request->get('celular');
-        $personas->usuario=$request->get('usuario');
-        $personas->contraseña=$request->get('contraseña');
-        $personas->rol=$request->get('rol');
+        // $personas=Persona::find($id);
+        // $aux=$personas->usuario;
+        // $personas->celular=$request->get('celular');
+        // $personas->usuario=$request->get('usuario');
+        // $personas->contraseña=$request->get('contraseña');
+        // $personas->rol=$request->get('rol');
 
-        $users=DB::table('users')->where('email','=',$aux)->get();
-        foreach($users as $userunico){
-            $user=User::find($userunico->id);
-            $user->email= $personas->usuario;
-            $user->rol= $request->get('rol');
-            $user->password= bcrypt($personas->contraseña);
-            $user->save();
-        }
+        $users=User::find($id);
+        $user->email= $request->get('usuario');;
+        $user->rol= $request->get('rol');
+        $user->password= bcrypt($request->get('contraseña'));
+        $user->save();
+        
 
-        $personas->save();
+        // $personas->save();
 
         return redirect('/personas');
     }

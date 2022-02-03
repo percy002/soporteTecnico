@@ -20,6 +20,13 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function buscar(Request $request){
+        
+        $term = $request->search;
+
+        return response()->json($term);
+    }
     public function index()
     {
         $responsable_equipos=Responsable_Equipo::all();
@@ -58,17 +65,32 @@ class EquipoController extends Controller
         $equipos->patrimonio=$request->get('patrimonio');
         $equipos->marca=$request->get('marca');
         $equipos->sistema=$request->get('sistema');
-        $equipos->procesador=$request->get('procesador_marca').'-'.$request->get('procesador').'-'.$request->get('velocidad');
+        // $equipos->procesador=$request->get('procesador_marca').'-'.$request->get('procesador').'-'.$request->get('velocidad');
+        if ($request->get('procesador_marca')=='intel') {
+            $equipos->procesador=$request->get('procesador_marca').'-'.$request->get('procesador1');
+        }
+        else {
+            $equipos->procesador=$request->get('procesador_marca').'-'.$request->get('procesador2');
+
+        }
         $equipos->placa=$request->get('placa');
         $equipos->socket=$request->get('socket');
         $equipos->ram=$request->get('ram');
-        $equipos->disco=$request->get('disco12')." GB ".$request->get('disco1');
+        if ($request->get('aux2')=='GB') {
+            $equipos->disco=$request->get('disco12')." ".$request->get('aux2')." ".$request->get('disco1');
+        }
+        else {
+            $equipos->disco=$request->get('disco11')." ".$request->get('aux2')." ".$request->get('disco1');
+
+        }
+        
         $equipos->video=$request->get('video');
         $equipos->red=$request->get('red');
         $equipos->bateria=$request->get('bateria');
         $equipos->lectora=$request->get('lectora');
-        $equipos->tamaño_disco=$request->get('tamaño');
-        $equipos->estado=$request->get('estado');
+        $equipos->tamaño=$request->get('tamaño');
+        $equipos->estado="OPERATIVO"
+        ;
 
         
         
@@ -83,7 +105,7 @@ class EquipoController extends Controller
             $responsable=new Responsable();
             $responsable->nombre=$request->get('responsable');
             $responsable->dni=$request->get('dni');
-            $responsable->observacion=$request->get('observacion');
+            // $responsable->observacion=$request->get('observacion');
             $responsable->area=$request->get('area');
             $responsable->save();
 
@@ -97,6 +119,8 @@ class EquipoController extends Controller
         // dd($responsable=Responsable::where('dni','=',$request->get('dni'))->first());
         $equipos->save();
         $responsable_equipo->equipo_id=$equipos->id;
+
+
         $responsable_equipo->save();
         
         // dd($equipos->id);

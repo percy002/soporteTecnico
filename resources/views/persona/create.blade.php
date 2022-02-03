@@ -7,19 +7,19 @@
 <form action="/personas" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-3 col-4">
-        <lavel for="" class="form-label">Nombre(s) y Apellidos</label>
+        <label for="" class="form-label">Nombre(s) y Apellidos</label>
         <input id="name" name="name" type="text" class="form-control" tabindex="1" required>
     </div>
     <div class="mb-3 col-4">
-        <lavel for="" class="form-label">DNI</label>
-        <input id="DNI" name="DNI" type="text" class="form-control" tabindex="2" required>
+        <label for="" class="form-label">DNI</label>
+        <input id="dni" name="dni" type="text" class="form-control" tabindex="2" required>
     </div>
     <div class="mb-3 col-4">
-        <lavel for="" class="form-label">Celular</label>
+        <label for="" class="form-label">Celular</label>
         <input id="celular" name="celular" type="text" class="form-control" tabindex="3" required>
     </div>
     <div class="mb-3 col-4">
-        <lavel for="" class="form-label">Rol</label>
+        <label for="" class="form-label">Rol</label>
         <select id="rol" name="rol" class="form-control" tabindex="4" required>
             <option value="trabajador" selected>Trabajador</option>
             <option value="administrador">Administrador</option>

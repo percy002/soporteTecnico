@@ -24,8 +24,12 @@
             <th scope="cool">Area</th>
             <th scope="cool">Fecha de Entrada</th>
             <th scope="cool">Estado</th>
-            <th scope="cool">Entregar</th>
+            @if (!Auth::guest())
+                <th scope="cool">Entregar</th>            
+            @endif
+            {{-- @can('mantenimientos.edit')
             <th scope="cool">Acciones</th>
+            @endcan --}}
         </tr>
     </thead>
     <body>
@@ -37,57 +41,65 @@
             <td>{{$mantenimiento->responsable_equipo->responsable->nombre}}</td>
             <td>{{$mantenimiento->responsable_equipo->responsable->area}}</td>
             <td>{{$mantenimiento->fecha_entrada}}</td>
+            
+            {{-- @php
+                
+                dd(Auth::guest());
+            @endphp
+             --}}
+             <td>
+            @if (Auth::guest())
+                @if ($mantenimiento->responsable_equipo->equipo->estado=="OPERATIVO")
+                Listo
+                @else
+                Pendiente
 
-            @if (Auth::user()->rol == 'administrador')
-            <td>
-                {{-- {{ Auth::user()->roles }} --}}
-                @if($mantenimiento->estado==1)
+                @endif
+                
+            
+            @else
+                @if($mantenimiento->responsable_equipo->equipo->estado=="OPERATIVO")
                 <a href="/mantenimiento/{{$mantenimiento->id}}/desabilitar" class="btn btn-info">listo</i></a>
                 @else
                 <a href="/mantenimiento/{{$mantenimiento->id}}/habilitar" class="btn btn-info">pendiente</i></a>
                 @endif
-            </td>
-            @else
-                {{-- {{ Auth::user()->roles }} --}}
-                @if ($mantenimiento->estado==1)
-                <td>Listo</td>
-                @else
-                    <td>Pendiente</td>
-
-                @endif
             @endif
+            </td>
+
+            @if (!Auth::guest())
             <td>
-                @if (Auth::user()->rol == 'administrador')
-                    @if($mantenimiento->entregado=="No entregado" && $mantenimiento->estado==1)
-                        <a href="/mantenimiento/{{$mantenimiento->id}}/entregar" class="btn btn-info">Entregar equipo</i></a>
+               
+
+                
+                    @if($mantenimiento->entregado=="No entregado" && $mantenimiento->responsable_equipo->equipo->estado=="OPERATIVO")
+                    <a   id="{{'modalentrega'.$mantenimiento->id}}" class="btn btn-info modal-entrega" data-toggle="modal" data-target="{{'#modalentrega'.$mantenimiento->id}}"  >Entregar equipo</a>
                     @else
                         ----------
                         {{-- <a href="/mantenimiento/{{$mantenimiento->id}}/habilitar" class="btn btn-info">pendiente</i></a> --}}
                     @endif
-                @else
-                    @if ($mantenimiento->entregado==0)
-                        <td>Pendiente</td>
-                    @else
-                        <td>Entregado</td>
-                    @endif
+                    
+                </td>
                 @endif
-            </td>
-            <td>
-                <form action="{{ route ('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
-                    @can('mantenimientos.edit')
-                        <a href="/mantenimientos/{{$mantenimiento->id}}/edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                    @endcan
-                    @csrf
-                    @method('DELETE')
-                    @can('mantenimientos.destroy')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    @endcan
-                </form>
-            </td>
+
+            {{-- @can('mantenimientos.edit')
+                <td>
+                    <form action="{{ route ('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
+                            <a href="/mantenimientos/{{$mantenimiento->id}}/edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                        @endcan
+                        @csrf
+                        @method('DELETE')
+                        @can('mantenimientos.destroy')
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                </td>
+            @endcan --}}
         </tr>
+        @include('mantenimiento.modal.entregarEquipo')
         @endforeach
     </body>
 </table>
+
+
 @stop
 
 @section('css')
@@ -99,6 +111,7 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://kit.fontawesome.com/0ff8f68011.js" crossorigin="anonymous"></script>
+
 
 <script>
 $(document).ready(function() {

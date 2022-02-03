@@ -8,6 +8,8 @@
         <a href="personas\create" class="btn btn-primary btn-sm float-right"><h1>NUEVO</h1></a>
     @endcan
     <h2><strong>de Soporte Técnico</strong></h2>
+
+    <a href="{{route('reporteUsuario')}}" class="btn btn-success">imprimir</a>
 @stop
 
 @section('content')
@@ -17,7 +19,7 @@
             <th scope="cool">DNI</th>
             <th scope="cool">Nombre</th>
             <th scope="cool">Usuario</th>
-            <th scope="cool">Contraseña</th>
+            {{-- <th scope="cool">Contraseña</th> --}}
             <th scope="cool">Cuenta</th>
             <th scope="cool">Acciones</th>
         </tr>
@@ -25,12 +27,12 @@
     <body>
         @foreach ($personas as $persona)
         <tr>
-            <td>{{ $persona->DNI }}</td>
+            <td>{{ $persona->dni }}</td>
             <td>{{ $persona->name }}</td>
-            <td>{{ $persona->usuario }}</td>
-            <td>{{ $persona->contraseña }}</td>
+            <td>{{ $persona->email }}</td>
+            {{-- <td>{{ $persona->password }}</td> --}}
             <td>
-                @if( $persona->cuenta==1 )
+                @if( $persona->active==1 )
                 <a href="/personas/{{$persona->id}}/desabilitar" class="btn btn-info">Desabilitar</i></a>
                 @else
                 <a href="/personas/{{$persona->id}}/habilitar" class="btn btn-info">Habilitar</i></a>

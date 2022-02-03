@@ -32,15 +32,7 @@
                         </select>
                     </div>
                     <img Align="right" width="350" height="230" src="https://resource.logitechg.com/w_1000,c_limit,q_auto,f_auto,dpr_auto/d_transparent.gif/content/dam/gaming/en/products/pro-x-keyboard/pro-x-keyboard-gallery-1.png?v=1">
-                    <div class="mb-3 col-5">
-                        <h3><label for="" class="form-label">Estado</label></h3><br>
-                        <select id="estado" name="estado" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="OPERATIVO">OPERATIVO</option>
-                            <option value="INOPERATIVO">INOPERATIVO</option>
-                        </select>
-                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
-                    </div>
+                    
 
                     @include('equipo.modal.includetrabajador')
                     

@@ -23,15 +23,7 @@
                         <label for="" class="form-label">Marca</label>
                         <input id="marca" name="marca" type="text" class="form-control" required>
                     </div>
-                    <div class="mb-3 col-5">
-                        <h3><label for="" class="form-label">Estado</label></h3><br>
-                        <select id="estado" name="estado" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="OPERATIVO">OPERATIVO</option>
-                            <option value="INOPERATIVO">INOPERATIVO</option>
-                        </select>
-                        {{-- <input id="estado2" name="estado2" type="text" class="form-control" required> --}}
-                    </div>
+                    
 
                     @include('equipo.modal.includetrabajador')
                     
