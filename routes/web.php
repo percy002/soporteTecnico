@@ -68,7 +68,7 @@ Route::get('equipos/buscar',[EquipoController::class],'buscar')->name('equipos.b
 Route::post('historiales/historiales_fecha', [HistorialController::class,'show_x_date'])->name('historial_fecha');
 
 
-Route::get('personas/pdf', [PersonaController::class,'reporteUsuario'])->name('reporteUsuario');
+Route::get('historiales/personas/pdf/{fecha_inicio}/{fecha_fin}', [HistorialController::class,'reporteHistorial'])->name('reporteHistorial');
 
 Route::resource('equipos', EquipoController::class);
 // Route::resource('caracteristicas', CaracteristicaController::class);

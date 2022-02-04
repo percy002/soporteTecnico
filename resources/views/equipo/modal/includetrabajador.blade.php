@@ -62,7 +62,7 @@
     <div class="mb-3 col-4">
         <label for="" class="form-label">Lugar de trabajo</label>
         <select id="area" name="area" class="form-control selectpicker" data-live-search="true" required>
-            <option hidden selected>Selecciona una opción</option>
+            {{-- <option hidden selected>Selecciona una opción</option> --}}
             @for ($k = 0; $k < count($aux); $k++)
                 <option value="{{$aux[$k]}}">{{$aux[$k]}}</option>
             @endfor

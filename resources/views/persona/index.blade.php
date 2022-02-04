@@ -9,7 +9,7 @@
     @endcan
     <h2><strong>de Soporte Técnico</strong></h2>
 
-    <a href="{{route('reporteUsuario')}}" class="btn btn-success">imprimir</a>
+    {{-- <a href="{{route('reporteUsuario')}}" class="btn btn-success">imprimir</a> --}}
 @stop
 
 @section('content')
@@ -69,7 +69,7 @@
 <script>
 $(document).ready(function() {
     $('#personas').DataTable({
-        "lengthMenu": [[5,10,50,-1], [5,10,50,"Todo"]]
+        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]]
     });
 } );
 </script>

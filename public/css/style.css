@@ -1,10 +1,7 @@
 /* nuevo css */
-.trabajador{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+.OPERATIVO{
+	background-color: rgb(95, 209, 95) !important;
 }
-.trabajador_imagen{
-	display: flex;
-	flex-direction: column;
+.INOPERATIVO{
+	background-color: rgb(226, 203, 99) !important;
 }

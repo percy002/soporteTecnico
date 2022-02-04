@@ -225,34 +225,40 @@ class MantenimientoController extends Controller
         $equipo=Equipo::find($mantenimento->responsable_equipo->equipo->id);
         $equipo->estado="OPERATIVO";
 
-        if(!$request->get('dni')==$mantenimento->usuario->dni)
+        // dd(!($request->get('dni')==$mantenimento->responsable_equipo->responsable->dni));
+        $responsable_equipos=new Responsable_Equipo();
+        if(!($request->get('dni')==$mantenimento->responsable_equipo->responsable->dni))
         {
-            $responsable_equipos=new Responsable_Equipo();
+            
+            // dd(Responsable::where('dni',$request->get('dni'))->first()->dni);
             if(Responsable::where('dni',$request->get('dni'))->exists()){
-                $responsable=Responsable::where('dni',$request->get('dni'));
+                $responsable=Responsable::where('dni',$request->get('dni'))->first();
 
                 
-                $responsable_equipos->user_id=$responsable->id;
+                $responsable_equipos->responsable_id=$responsable->id;
 
             }
             else {
                 $responsable = new Responsable();
                 $responsable->dni=$request->get('dni');
                 $responsable->nombre=$request->get('nombre');
-
+                $responsable->area=$mantenimento->responsable_equipo->responsable->area;
                 $responsable->save();
-                $responsable_equipos->user_id=$responsable->id;
+                $responsable_equipos->responsable_id=$responsable->id;
 
             }
 
             $responsable_equipos->equipo_id=$equipo->id;
 
             $responsable_equipos->save();
+            
+            $mantenimento->responsable_equipo_id=$responsable_equipos->id;
         }
 
 
 
         $equipo->save();
+        
         $mantenimento->save();
         
         return redirect('/mantenimientos');

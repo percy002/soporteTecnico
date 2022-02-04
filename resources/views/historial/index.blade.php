@@ -6,7 +6,7 @@
 <h2><strong>Listado de Historial de</strong></h2>
 <h2><strong>Mantenimientos del Municipio</strong></h2>
 
-<a href="personas/pdf" class="btn btn-success">imprimir</a>
+<a href="{{route('reporteHistorial',['fecha_inicio'=> $fecha_inicio,'fecha_fin'=> $fecha_fin])}}" class="btn btn-success">imprimir</a>
 <form action="{{route('historial_fecha')}}" method="post">
     <div class="row">
         @csrf

@@ -10,6 +10,7 @@ use App\Models\Caracteristica;
 use App\Models\Mantenimiento;
 use App\Models\Trabajadore;
 Use Carbon\Carbon;
+use Dompdf\Dompdf;
 
 class HistorialController extends Controller
 {
@@ -21,6 +22,33 @@ class HistorialController extends Controller
 
     public function __construct(){
         $this->middleware('auth'); 
+    }
+
+    public function reporteHistorial($fecha_inicio , $fecha_fin){
+        // logo superior reportes
+        // dd($fecha_inicio);
+        $path=base_path('logo-mario-1.jpg');
+        $type=pathinfo($path,PATHINFO_EXTENSION);
+        $data=file_get_contents($path);
+        $pic='data:image/'.$type.';base64,'.base64_encode($data);
+
+        $mantenimientos=Mantenimiento::where('entregado','Entregado')->whereBetween('fecha_entrega', [(new Carbon($fecha_inicio))->subDays(1)->toDateString(), (new Carbon($fecha_fin))->addDays(1)->toDateString()])->get();
+
+        $dompdf = new Dompdf();
+        // dd($mantenimientos);
+        // dd($dompdf);
+        $dompdf->loadHtml(view('reportes.historiales',compact('pic','mantenimientos')));
+        // dd($dompdf);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        return $dompdf->stream();
+        // return redirect()->back();
+        // Output the generated PDF to Browser
+        
     }
     public function show_x_date(Request $request)
     {

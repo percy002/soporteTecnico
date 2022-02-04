@@ -40,7 +40,7 @@
                     <?php $separador1 = explode("-", $equipo->procesador); ?>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Procesador</label>
-                        <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required>
+                        {{-- <input id="velocidad" name="velocidad" type="number" value="{{$separador1[2]}}" min="1" max="10" required> --}}
                         <select id="aux1" name="aux1" class="form-control" onchange="showresult(this.value)" required>
                             <option hidden selected>{{$separador1[0]}}</option>
                             <option value="Intel">Intel</option>

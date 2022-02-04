@@ -4,11 +4,11 @@
 
 @section('content_header')
     @can('equipos.create')
-    <a href="equipos\create" class="btn btn-primary btn-sm float-right"><h1>NUEVO</h1></a>
+    <a href="equipos\create" class="btn btn-primary btn-sm float-right"><h1>Crear Equipo</h1></a>
     @endcan
     <h2><strong>Listado de Mantenimiento</strong></h2>
     @can('mantenimientos.create')
-    <a href="mantenimientos\create" class="btn btn-primary btn-sm float-right"><h1>MODIFICAR</h1></a>
+    <a href="mantenimientos\create" class="btn btn-primary btn-sm float-right"><h1>Crear Mantenimiento</h1></a>
     @endcan
     <h2><strong>de Equipos del Municipio</strong></h2>
 @stop
@@ -34,7 +34,7 @@
     </thead>
     <body>
         @foreach ($mantenimientos as $mantenimiento)
-        <tr>
+        <tr class="{{$mantenimiento->responsable_equipo->equipo->estado}}">
             <td>{{$mantenimiento->id}}</td>
             <td>{{$mantenimiento->responsable_equipo->equipo->patrimonio}}</td>
             <td>{{$mantenimiento->responsable_equipo->equipo->tipo}}</td>
@@ -104,6 +104,8 @@
 
 @section('css')
 <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{{{ asset('css/style.css') }}}">
 @stop
 
 @section('js')
@@ -116,7 +118,7 @@
 <script>
 $(document).ready(function() {
     $('#mantenimientos').DataTable({
-        "lengthMenu": [[5,10,50,-1], [5,10,50,"Todo"]]
+        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]]
     });
 } );
 </script>

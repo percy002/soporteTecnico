@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login2',
     'register_url' => 'register',
@@ -246,30 +246,30 @@ return [
         [
             'text'        => 'Inicio',
             'url'         => 'dashboard',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-home',
             'label_color' => 'success',
             'can'         => 'dashboard',
         ],
         [
             'text'        => 'Mantenimiento',
             'url'         => 'mantenimientos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-tasks',
             'label_color' => 'success',
             // 'can'         => 'mantenimientos.index',
         ],
         [
-            'text'        => 'Historial',
-            'url'         => 'historiales',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-            'can'         => 'historiales.index',
-        ],
-        [
             'text'        => 'Equipos',
             'url'         => 'equipos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-desktop',
             'label_color' => 'success',
             'can'         => 'equipos.index',
+        ],
+        [
+            'text'        => 'Historial',
+            'url'         => 'historiales',
+            'icon'        => 'fas fa-history',
+            'label_color' => 'success',
+            'can'         => 'historiales.index',
         ],
         [
             'text'        => 'Usuarios',
@@ -283,6 +283,11 @@ return [
             'text' => 'Encargado de Soporte',
             'url'  => 'responsables',
             'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Login',
+            'url'  => 'login',
+            'icon' => 'fas fa-sign-in-alt',
         ],
     ],
 

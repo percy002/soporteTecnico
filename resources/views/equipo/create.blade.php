@@ -64,3 +64,10 @@
 
 </form>
 @stop
+@section('js')
+<script type="text/javascript">
+    @error ('patrimonio')
+        $('#ModalCreateTeclado').modal('show');
+    @enderror
+    </script>
+@endsection

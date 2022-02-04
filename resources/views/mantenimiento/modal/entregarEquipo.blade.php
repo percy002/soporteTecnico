@@ -53,7 +53,7 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Persona que recoje el equipo</label>
-                        <input id="persona" name="persona" type="text" class="form-control" value="{{$mantenimiento->responsable_equipo->responsable->nombre}}" tabindex="9" required>
+                        <input id="nombre" name="nombre" type="text" class="form-control" value="{{$mantenimiento->responsable_equipo->responsable->nombre}}" tabindex="9" required>
                     </div>
                     
                     <div class="mb-3 col-4">

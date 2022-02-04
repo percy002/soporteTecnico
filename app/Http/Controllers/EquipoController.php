@@ -56,6 +56,10 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
+        // validaciones
+        $request->validate([
+            'patrimonio'=> 'required|unique:equipos,patrimonio',
+        ]);
         // dd($request->get('dni'));
         // dd(Responsable_Equipo::where('dni','=',$request->get('dni'))->exists());
         // dd(Responsable::where('dni','=',$request->get('dni'))->exists());
@@ -322,11 +326,12 @@ class EquipoController extends Controller
             // $equipo->codigo='CPU';
             $equipo->patrimonio=$request->get('patrimonio');
             $equipo->sistema=$request->get('sistema');
-            if($request->get('aux1')==0){
-                $equipo->procesador=$request->get('procesador1');
+            // dd($request->get('aux1'));
+            if($request->get('aux1')=="Intel"){
+                $equipo->procesador=$request->get('aux1').'-'.$request->get('procesador1');
             }
-            elseif($request->get('aux1')==1){
-                $equipo->procesador=$request->get('procesador2');
+            elseif($request->get('aux1')=="AMD"){
+                $equipo->procesador=$request->get('aux1').'-'.$request->get('procesador2');
             }
             $equipo->placa=$request->get('placa');
             $equipo->socket=$request->get('socket');

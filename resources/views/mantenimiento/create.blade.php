@@ -26,7 +26,7 @@
                 @foreach($responsable_equipos as $responsable_equipo)
                     @if ($responsable_equipo->equipo->estado=="OPERATIVO")
                         
-                    <option value="{{$responsable_equipo->equipo->id}}">{{ $responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->responsable->nombre }}</option>
+                    <option value="{{$responsable_equipo->equipo->id}}">{{ $responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->equipo->patrimonio." | ".$responsable_equipo->responsable->nombre }}</option>
                     @endif
                     
                 @endforeach

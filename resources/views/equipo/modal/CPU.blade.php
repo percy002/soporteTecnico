@@ -96,7 +96,7 @@
                             <option value="Teras">Teras</option>
                         </select>
                         <input id="disco11" name="disco11" type="number" min="1" max="30" class="form-control" style="display:none">
-                        <input id="disco12" name="disco12" type="number" step="10" min="100" max="990" class="form-control" style="display:none">
+                        <input id="disco12" name="disco12" type="number" step="10" min="100" max="990" class="form-control" style="display:block">
                     </div>
                     <div class="form-group mb-3 col-5">
                         <label for="" class="form-label">Video</label><br>

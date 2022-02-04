@@ -19,6 +19,10 @@
                         <label for="" class="form-label">Codigo Patrimonial</label>
                         <input id="patrimonio" name="patrimonio" type="text" class="form-control" required>
                     </div>
+                    @error('patrimonio')
+                        <br>
+                        <small>el codigo patrimonial es unico</small>
+                    @enderror
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Marca</label>
                         <input id="marca" name="marca" type="text" class="form-control" required>

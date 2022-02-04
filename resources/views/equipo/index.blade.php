@@ -65,7 +65,7 @@
                     @csrf
                     @method('DELETE')
                     @can('equipos.destroy')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        {{-- <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
                     @endcan
                 </form>
             </td>
@@ -89,7 +89,7 @@
 <script>
 $(document).ready(function() {
     $('#equipos').DataTable({
-        "lengthMenu": [[5,10,50,-1], [5,10,50,"Todo"]]
+        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]]
     });
 } );
 </script>

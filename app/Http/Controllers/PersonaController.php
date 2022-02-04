@@ -141,7 +141,11 @@ class PersonaController extends Controller
         // dd($user);
         $user->email= $request->get('usuario');
         $user->rol= $request->get('rol');
-        $user->password= bcrypt($request->get('contraseña'));
+        // dd(!$request->get('contraseña'));
+        if (!$request->get('contraseña')) {
+            # code...
+            $user->password= bcrypt($request->get('contraseña'));
+        }
         $user->save();//update
        
 
