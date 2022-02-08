@@ -37,7 +37,7 @@
         <tr class="{{$mantenimiento->responsable_equipo->equipo->estado}}">
             <td>{{$mantenimiento->id}}</td>
             <td>{{$mantenimiento->responsable_equipo->equipo->patrimonio}}</td>
-            <td>{{$mantenimiento->responsable_equipo->equipo->tipo}}</td>
+            <td>{{$mantenimiento->responsable_equipo->equipo->equipo}}</td>
             <td>{{$mantenimiento->responsable_equipo->responsable->nombre}}</td>
             <td>{{$mantenimiento->responsable_equipo->responsable->area}}</td>
             <td>{{$mantenimiento->fecha_entrada}}</td>
@@ -118,7 +118,8 @@
 <script>
 $(document).ready(function() {
     $('#mantenimientos').DataTable({
-        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]]
+        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]],
+        "order": [[ 0, "desc" ]]
     });
 } );
 </script>

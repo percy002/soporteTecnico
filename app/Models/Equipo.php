@@ -18,6 +18,8 @@ class Equipo extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-   
+   public function responsables(){
+    return $this->belongsToMany(Responsable::class,'Responsable_Equipos');
+   }
     
 }

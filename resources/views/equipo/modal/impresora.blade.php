@@ -29,10 +29,10 @@
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control"required>
-                            <option hidden selected>Selecciona una opción</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
+                            <option value="Tinta">Tinta</option>
                             <option value="Laser">Laser</option>
                             <option value="Matrisial">Matrisial</option>
-                            <option value="Tinta">Tinta</option>
                         </select>
                     </div>
                     <img Align="right" width="320" height="230" src="https://mediaserver.goepson.com/ImConvServlet/imconv/367d11aa327de16f51ea7f97fd57bbe5b4c503c0/1200Wx1200H?use=banner&assetDescr=19Lin_FAL_Black_13_1">

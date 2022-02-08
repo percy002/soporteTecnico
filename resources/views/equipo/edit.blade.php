@@ -11,7 +11,7 @@
 
     <div class="mb-3 col-4">
         <label for="" class="form-label">Equipo</label>
-        <input id="equipo" name="equipo" type="text" value="{{$equipo->tipo}}" class="form-control" tabindex="1" readonly />
+        <input id="equipo" name="equipo" type="text" value="{{$equipo->equipo}}" class="form-control" tabindex="1" readonly />
     </div>
     <div class="mb-3 col-4">
         <label for="" class="form-label">Codigo Patrimonial</label>

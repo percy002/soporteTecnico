@@ -30,9 +30,9 @@
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="PS2">PS2</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="USB">USB</option>
+                            <option value="PS2">PS2</option>
                         </select>
                     </div>
                     <img Align="right" width="350" height="230" src="https://resource.logitechg.com/w_1000,c_limit,q_auto,f_auto,dpr_auto/d_transparent.gif/content/dam/gaming/en/products/pro-x-keyboard/pro-x-keyboard-gallery-1.png?v=1">

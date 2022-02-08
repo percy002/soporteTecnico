@@ -48,19 +48,28 @@
 'SUB GERENCIA DE CULTURA, EDUCACION, DEPORTE Y SERVICIOS FUNERARIOS',
 'SUB GERENCIA DE DESARROLLO TERRITORIAL Y TRANSITO', 'SUB GERENCIA DE EJECUCION DE OBRAS',
 'SUB GERENCIA DE EXPEDIENTES TECNICOS', 'SUB GERENCIA DE FISCALIZACION AMBIENTAL (UOFA)',
-'SUB GERENCIA DE FISCALIZACION TRIBUTARIA'
+'SUB GERENCIA DE FISCALIZACION TRIBUTARIA','AREA DE PROYECTOS Y RENTAS','CIAM','MESA DE PARTES',
+'SUB GERENCIA DE SERVICIOS JURIDICOS SOCIALES','SUB GERENCIA DE ORIENTACION','SUB GERENCIA DE ADMINISTRACION URBANA Y RURAL',
+'AREA DE PAGADURIA','AREA DE PVL','AREA DE REGIDORES','WAWA WASI','PROYECTO DE LIMPIEZA PUBLICA','PROYECTO ALTO QOSQO',
+'AREA DE GESTION DE RIESGO'
 );
 ?>
 
                                                         
                 
     {{-- <img Align="right" width="300" height="250" src="https://previews.123rf.com/images/sudowoodo/sudowoodo1507/sudowoodo150700014/42186961-los-empresarios-j%C3%B3venes-hombre-y-mujer-en-el-estilo-de-dibujos-animados-en-el-juego-con-la-maleta-ai.jpg"> --}}
+    
+    
     <div class="mb-3 col-4">
-        <label for="" class="form-label">Campo</label>
-        <input id="trabajador" name="trabajador" type="text" value="TRABAJADOR" readonly />
+        <label for="" class="form-label">DNI</label>
+        <input id="dni" name="dni" type="text" class="form-control" required>
     </div>
     <div class="mb-3 col-4">
-        <label for="" class="form-label">Lugar de trabajo</label>
+        <label for="" class="form-label">Responsable del equipo</label>
+        <input id="responsable" name="responsable" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3 col-4">
+        <label for="" class="form-label">Area de trabajo</label>
         <select id="area" name="area" class="form-control selectpicker" data-live-search="true" required>
             {{-- <option hidden selected>Selecciona una opción</option> --}}
             @for ($k = 0; $k < count($aux); $k++)
@@ -68,16 +77,8 @@
             @endfor
         </select>
     </div>
-    <div class="mb-3 col-4">
-        <label for="" class="form-label">Responsable del equipo</label>
-        <input id="responsable" name="responsable" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3 col-4">
-        <label for="" class="form-label">DNI</label>
-        <input id="dni" name="dni" type="text" class="form-control" required>
-    </div>
     {{-- <img Align="right" width="300" height="200" src="https://previews.123rf.com/images/vectorkif/vectorkif1806/vectorkif180600200/103430109-builder-man-and-woman-in-uniform-cartoon-characters-professional-construction-workers-smiling-repair.jpg"> --}}
-    <div class="mb-3 col-4">
+    {{-- <div class="mb-3 col-4">
         <label for="" class="form-label">Observacion</label>
         <input id="observacion" name="observacion" type="text" class="form-control">
-    </div>
+    </div> --}}

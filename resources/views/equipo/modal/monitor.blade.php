@@ -26,7 +26,7 @@
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="Led">Led</option>
                             <option value="LCD">LCD</option>
                         </select>

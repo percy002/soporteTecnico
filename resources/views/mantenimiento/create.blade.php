@@ -26,12 +26,25 @@
                 @foreach($responsable_equipos as $responsable_equipo)
                     @if ($responsable_equipo->equipo->estado=="OPERATIVO")
                         
-                    <option value="{{$responsable_equipo->equipo->id}}">{{ $responsable_equipo->equipo->tipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->equipo->patrimonio." | ".$responsable_equipo->responsable->nombre }}</option>
+                    <option value="{{$responsable_equipo->id}}">{{ $responsable_equipo->equipo->equipo." - ".$responsable_equipo->equipo->marca." | ".$responsable_equipo->equipo->patrimonio." | ".$responsable_equipo->responsable->nombre }}</option>
                     @endif
                     
                 @endforeach
         </select>
     </div>
+    {{-- <div class="mb-3 col-4">
+        <label for="" class="form-label">Equipo que se dara mantenimiento</label>
+        <select id="equipo" name="equipo" class="form-control selectpicker" data-live-search="true" tabindex="3" required>
+            
+                @foreach($responsable_equipos as $responsable_equipo)
+                    @if ($responsable_equipo->equipo->estado=="OPERATIVO")
+                        
+                    <option value="{{$responsable_equipo->responsable->id}}">{{ $responsable_equipo->responsable->nombre ."-".$responsable_equipo->responsable->dni}}</option>
+                    @endif
+                    
+                @endforeach
+        </select>
+    </div> --}}
     <div class="mb-3 col-4">
         <label for="" class="form-label">Problema</label>
         <textarea id="problema" name="problema" cols="100" rows="3" tabindex="4" required></textarea>

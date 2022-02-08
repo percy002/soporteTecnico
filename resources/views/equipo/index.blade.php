@@ -33,7 +33,7 @@
             
             <td>{{$equipo->id}}</td>
             <td>{{$equipo->patrimonio}}</td>
-            <td>{{$equipo->tipo}}</td>
+            <td>{{$equipo->equipo}}</td>
             <td>{{$responsable_equipo->responsable->nombre}}</td>
             <td>{{$responsable_equipo->responsable->area}}</td>
             <td>{{$equipo->estado}}</td>
@@ -89,7 +89,8 @@
 <script>
 $(document).ready(function() {
     $('#equipos').DataTable({
-        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]]
+        "lengthMenu": [[20,50,100,-1], [20,50,100,"Todo"]],
+        "order": [[ 0, "desc" ]]
     });
 } );
 </script>

@@ -26,9 +26,9 @@
                     <div class="mb-3 col-4">
                         <label for="" class="form-label">Tipo</label>
                         <select id="tipo" name="tipo" class="form-control" required>
-                            <option hidden selected>Selecciona una opción</option>
-                            <option value="PS2">PS2</option>
+                            {{-- <option hidden selected>Selecciona una opción</option> --}}
                             <option value="USB">USB</option>
+                            <option value="PS2">PS2</option>
                         </select>
                     </div>
                     <img Align="right" width="360" height="200" src="https://m.media-amazon.com/images/I/61omhLgunpL._AC_SY450_.jpg">

@@ -20,7 +20,9 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function __construct(){
+        $this->middleware('auth'); 
+    }
     public function buscar(Request $request){
         
         $term = $request->search;
@@ -30,7 +32,8 @@ class EquipoController extends Controller
     public function index()
     {
         $responsable_equipos=Responsable_Equipo::all();
-        $equipos = Equipo::all();
+        $equipos = DB::table('equipos')->orderByDesc('id')->get();
+        // dd($equipos);
         // $equipo=DB::table('equipo')->where('responsable','!=',NULL)->get();
         // $trabajadores=DB::table('trabajadores')->get();
         
@@ -57,15 +60,17 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
         // validaciones
-        $request->validate([
-            'patrimonio'=> 'required|unique:equipos,patrimonio',
-        ]);
+        
         // dd($request->get('dni'));
         // dd(Responsable_Equipo::where('dni','=',$request->get('dni'))->exists());
         // dd(Responsable::where('dni','=',$request->get('dni'))->exists());
+
+        
+
         $responsable_equipo=new Responsable_Equipo(); 
         $equipos=new Equipo(); 
-        $equipos->tipo=$request->get('equipo');
+        $equipos->equipo=$request->get('equipo');
+        $equipos->tipo=$request->get('tipo');
         $equipos->patrimonio=$request->get('patrimonio');
         $equipos->marca=$request->get('marca');
         $equipos->sistema=$request->get('sistema');
@@ -121,7 +126,12 @@ class EquipoController extends Controller
 
         }
         // dd($responsable=Responsable::where('dni','=',$request->get('dni'))->first());
-        $equipos->save();
+
+        if (!Equipo::where('patrimonio','=',$request->get('patrimonio'))->exists()) {
+            # code...
+            $equipos->save();
+        }
+        
         $responsable_equipo->equipo_id=$equipos->id;
 
 
@@ -355,7 +365,7 @@ class EquipoController extends Controller
         elseif($aux1=="ESTABILIZADOR"){
             // $equipo->codigo='EST';
             $equipo->patrimonio=$request->get('patrimonio');
-            $equipo->tipo=$request->get('tipo');
+            $equipo->tipo=$request->get('equipo');
             $equipo->estado=$request->get('estado');
         }
         elseif($aux1=="IMPRESORA"){
@@ -400,6 +410,7 @@ class EquipoController extends Controller
             $equipo->patrimonio=$request->get('patrimonio');
             $equipo->tipo=$request->get('tipo');
             $equipo->estado=$request->get('estado');
+            $equipo->tamaño=$request->get('tamaño');
         }
         elseif($aux1=="MOUSE"){
             // $equipo->codigo='MOU';
