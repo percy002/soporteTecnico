@@ -130,9 +130,13 @@ class EquipoController extends Controller
         if (!Equipo::where('patrimonio','=',$request->get('patrimonio'))->exists()) {
             # code...
             $equipos->save();
+            $responsable_equipo->equipo_id=$equipos->id;
         }
-        
-        $responsable_equipo->equipo_id=$equipos->id;
+        else {
+            $equipoPatrimonio=Equipo::where('patrimonio','=',$request->get('patrimonio'))->first();
+            // dd($equipoPatrimonio);
+            $responsable_equipo->equipo_id=$equipoPatrimonio->id;
+        }
 
 
         $responsable_equipo->save();
